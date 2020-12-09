@@ -5,6 +5,7 @@ import java.util.Vector;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+//import org.springframework.web.bind.annotation.PathVariable;
 //import org.springframework.web.bind.annotation.PostMapping;
 //import org.springframework.web.bind.annotation.RequestBody;
 //import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,7 +13,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import progetto.demoSpringBootApp.model.CityData;
 import progetto.demoSpringBootApp.model.CityDataExt;
 import progetto.demoSpringBootApp.service.WeatherService;
 
@@ -22,21 +22,22 @@ public class SimpleRestController {
 	WeatherService weatherService;
 	
 	@GetMapping("/actual")
-	public Vector<CityDataExt> actualWeather(@RequestParam("lat") float lat,
-										  @RequestParam("lon") float lon,
-										  @RequestParam("cnt") int cnt){
-		
+	public Vector<CityDataExt> actualWeather(@RequestParam(name="lat",defaultValue="42.1") double lat,
+										  @RequestParam(name="lon",defaultValue="14.71") double lon,
+										  @RequestParam(name="cnt",defaultValue="1") int cnt){
 		return weatherService.actualService(lat,lon,cnt);
 	}
-	/*
+	
 	@GetMapping("/stats/cloud/{period}")
-	public Vector<CityDataExt> statsCloud(@PathVariable (name="period",defalutValue=7)
-										  @RequestParam("lat") float lat,
-										  @RequestParam("lon") float lon,
-										  @RequestParam("cnt") int cnt){
+	public Vector<CityDataExt> statsCloud(@PathVariable (name="period",required=false) int period,
+										  @RequestParam(name="lat",defaultValue="42.1") double lat,
+										  @RequestParam(name="lon",defaultValue="14.71") double lon,
+										  @RequestParam(name="cnt",defaultValue="1") int cnt){
+		if(period<1) period=1;
+		return weatherService.statService(period,lat,lon,cnt);
 		
 	}
-	
+	/*
 	@GetMapping("/stats/pressure")
 	/*
 	@RequestMapping(value = "/hello", method = RequestMethod.GET)

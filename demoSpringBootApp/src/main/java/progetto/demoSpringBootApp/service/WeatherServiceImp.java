@@ -9,12 +9,15 @@ import progetto.demoSpringBootApp.model.CityDataExt;
 @Service
 public class WeatherServiceImp implements WeatherService {
 
-	//private final String APIkey =""; 
-	public Vector<CityDataExt> actualService(float lat, float lon,int cnt) {
-		try {
+	public Vector<CityDataExt> actualService(double lat, double lon,int cnt) {
 		APIOpenWeather apiCall= new APIOpenWeather();
+		try {
 		return apiCall.fillCityDataArray(lon, lat, cnt);
 		} catch(Exception e) {}
+		return null;
+	}
+
+	public Vector<CityDataExt> statService(int period, double lat, double lon, int cnt) {
 		return null;
 	}
 

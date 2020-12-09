@@ -17,10 +17,10 @@ import progetto.demoSpringBootApp.model.CityDataExt;
 public class APIOpenWeather {
 	private static final String key="bd0426afbb623d69f91f5c3f70b6613d";
 
-	public Vector<CityDataExt> fillCityDataArray(float lon,float lat, int cnt) throws Exception{
+	public Vector<CityDataExt> fillCityDataArray(double lon,double lat, int cnt) throws Exception{
 		if(cnt<1||cnt>20) throw new Exception("Contatore delle citta' non correttamente dimensionato");
-		if(lon<-180||lon>180) throw new Exception("Longitudine non correttamente dimensionata");
-		if(lat<-90||lat>90) throw new Exception("Latitudine non correttamente dimensionata");
+		if(lon<-180.0||lon>180.0) throw new Exception("Longitudine non correttamente dimensionata");
+		if(lat<-90.0||lat>90.0) throw new Exception("Latitudine non correttamente dimensionata");
 		
 		Vector<CityDataExt> filteredData = new Vector<CityDataExt>();
 		String site="http://api.openweathermap.org/data/2.5/find?lat="+lat+"&lon="+lon+"&cnt="+cnt
@@ -53,17 +53,18 @@ public class APIOpenWeather {
 
 	private static void parseData (JSONArray jsonData,Vector<CityDataExt> data){
 		String name;
-		float lon,lat;
+		double lon,lat;
 		int pressure,clouds;
 		
 		for(int i=0; i<jsonData.length();i++) {	
-			name= ((JSONObject) jsonData.get(i)).getString("name");
-			lon=((JSONObject)jsonData.get(i)).getJSONObject("coord").getFloat("lot");
-			lat=((JSONObject)jsonData.get(i)).getJSONObject("coord").getFloat("lat");
-			pressure=((JSONObject)jsonData.get(i)).getJSONObject("main").getInt("pressure");
-			clouds=((JSONObject)jsonData.get(i)).getJSONObject("clouds").getInt("all");
+			name= jsonData.getJSONObject(i).getString("name");
+			lon=jsonData.getJSONObject(i).getJSONObject("coord").getDouble("lon");
+			lat=jsonData.getJSONObject(i).getJSONObject("coord").getDouble("lat");
+			pressure=jsonData.getJSONObject(i).getJSONObject("main").getInt("pressure");
+			clouds=jsonData.getJSONObject(i).getJSONObject("clouds").getInt("all");
 			data.add(new CityDataExt(name,lon,lat,clouds,pressure));
 		}
+		
 	}
 	
 }

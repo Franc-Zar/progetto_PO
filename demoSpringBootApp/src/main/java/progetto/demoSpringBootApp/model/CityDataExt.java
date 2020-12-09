@@ -4,7 +4,7 @@ public class CityDataExt extends CityData {
 
 	private String name;
 
-	public CityDataExt(String name,float lon, float lat, int cloud, int pressure) {
+	public CityDataExt(String name,double lon, double lat, int cloud, int pressure) {
 		super(lon, lat, cloud, pressure);
 		this.name = name;
 	}

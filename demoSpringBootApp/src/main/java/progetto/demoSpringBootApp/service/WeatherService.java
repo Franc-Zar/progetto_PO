@@ -5,5 +5,5 @@ import progetto.demoSpringBootApp.model.CityDataExt;
 
 public interface WeatherService {
 
-	public abstract Vector<CityDataExt> actualService(float lat,float lon,int cnt);
+	public abstract Vector<CityDataExt> actualService(double lat,double lon,int cnt);
 }
