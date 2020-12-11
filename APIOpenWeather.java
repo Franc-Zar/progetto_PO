@@ -42,6 +42,8 @@ public class APIOpenWeather {
 		Vector<AbstractCityData> filteredData = new Vector<AbstractCityData>();
 		String site;
 		HttpURLConnection connection = null;
+		JSONArray data;
+		JSONObject obj;
 		
 		if(period==0) 
 		                    //URL per la chiamata all'API 
@@ -54,7 +56,7 @@ public class APIOpenWeather {
 		try {
 			URL url=new URL(site);
              
-			//chiamata all'API
+			//chiamata all'API (o all'Archivio)
 		    connection = (HttpURLConnection) url.openConnection();
 			connection.setConnectTimeout(5000);
 			connection.connect();
@@ -74,28 +76,26 @@ public class APIOpenWeather {
 				while((appoggio=reader.readLine())!=null) json+=appoggio;
 			}catch(IOException e) {System.out.println("ERROR: I/O error");}
 			
-			JSONObject ogg = new JSONObject(json);
-			JSONArray data = ogg.getJSONArray("list"); 
+	if(info=="actual") {
 			
-		if(info=="actual") {
+				 obj = new JSONObject(json);
+			  data = obj.getJSONArray("list"); 
+		
 			//chiamata al metodo che popola la struttura dati
 			parseData(data, filteredData);
-		 
-		
-		return filteredData; 
 		
 		 }  
 			
 		
 		if(info=="pressureStats" || info=="cloudStats") {
 		
-			Vector<CityDataStats> dataStats = new Vector <CityDataStats>();
-				dataStats =	calculateStats(data,period,info);
+			data = new JSONArray(json);
 					
-			return dataStats;
-		
+			calculateStats(filteredData,data,period,info);
+
 		}
-		return null;			
+		return filteredData;
+					
 	}
 		
 
@@ -125,11 +125,11 @@ public class APIOpenWeather {
 	
 	
 	
-	private Vector<CityDataStats>calculateStats(JSONArray data,int period,String nomeParam1){
+	private Vector<AbstractCityData>calculateStats(Vector<AbstractCityData> filteredData,JSONArray data,int period,String nomeParam1){
 		
-		Vector<CityDataStats> filteredData = new Vector<CityDataStats>();
 		Vector<String> nomi = new Vector <String>();
 		Vector<Integer> contatori = new Vector<Integer>();
+		CityDataStats singleCity ;
 		
 		nomi.add(data.getJSONObject(0).getString("name"));
 		double lat=data.getJSONObject(0).getDouble("lat");
@@ -149,9 +149,11 @@ public class APIOpenWeather {
 						
 						if(contatori.get(j)==period) break;
 						
-					filteredData.get(j).setParam1Average(filteredData.get(j).getParam1Average() + Math.pow(o.getInt(nomeParam1),2));
-						filteredData.get(j).setParam1Variance(filteredData.get(j).getParam1Variance()+ Math.pow(o.getInt(nomeParam1),2));
-						contatori.set(j, contatori.get(j)+1);
+						singleCity = (CityDataStats) filteredData.get(j);
+						
+				singleCity.setParam1Average(singleCity.getParam1Average() + Math.pow(o.getInt(nomeParam1),2));
+				singleCity.setParam1Variance(singleCity.getParam1Variance()+ Math.pow(o.getInt(nomeParam1),2));
+						contatori.set(j,contatori.get(j)+1);
 						
 						break;
 					}
@@ -165,9 +167,9 @@ public class APIOpenWeather {
 					}
 				}
 		}
-		for(CityDataStats x: filteredData) {
-			x.setParam1Average(x.getParam1Average()/period);
-			x.setParam1Variance((x.getParam1Variance()/period) - Math.pow((x.getParam1Average())/100,2));
+		for(AbstractCityData x: filteredData) {
+			((CityDataStats)x).setParam1Average(((CityDataStats) x).getParam1Average()/period);
+			((CityDataStats)x).setParam1Variance((((CityDataStats)x).getParam1Variance()/period) - Math.pow((((CityDataStats)x).getParam1Average())/100,2));
 		}
 		return filteredData;
 		
