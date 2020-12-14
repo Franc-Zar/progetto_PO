@@ -4,7 +4,7 @@ Il seguente progetto è relativo all'appello di **programmazione a oggetti di ge
 La nostra applicazione utilizza l'**API** [Current Weather Data](https://openweathermap.org/current#cycle) realizzata da OpenWeather  e manipola i dati ottenuti dalla suddetta per fornire all'utente informazioni riguardanti la **nuvolosità** e la **pressione** della città scelta e, ove specificato, delle città circostanti.
 # Utilizzo
 L'applicazione viene avviata su **"localhost:8080"** e sfrutta **tre Path**, distinte in funzione dell'operazione richiesta dall'utente:
- **Keys:**
+**Keys:**
 *  lat = latitudine
 *  lon = longitudine
 *  cnt = numero totale di città da analizzare (compresa quella di cui sono date le coordinate)
