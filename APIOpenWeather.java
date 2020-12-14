@@ -8,6 +8,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Vector;
 import java.lang.IllegalArgumentException;
+import java.lang.Math;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -32,7 +33,7 @@ public class APIOpenWeather {
 	 *  e il numero totale di città da analizzare (cnt),effettua la chiamata all'API e restituisce 
 	 *  la struttura dati (filteredData) popolata con le informazioni desiderate
 	*/
-	public Vector<AbstractCityData> fillCityDataArray(int period,double lon,double lat, int cnt,String info) throws IllegalArgumentException, IOException {
+	public Vector<AbstractCityData> fillCityDataArray(int period,double lat,double lon, int cnt,String type) throws IllegalArgumentException, IOException {
 		
 		if(cnt<1||cnt>20) throw new IllegalArgumentException("ERROR: Invalid cities' number");
 		if(lon<-180.0||lon>180.0) throw new IllegalArgumentException("ERROR: Invalid longitude");
@@ -51,7 +52,7 @@ public class APIOpenWeather {
 		                    +"&units=metric&appid="+key;
 		
 		    //URL per la chiamata all'archivio
-		else site="http://localhost:8080/archive";
+		else site="http://localhost:8080/archive/"+period+"?lat="+lat+"&lon="+lon+"&cnt="+cnt;
 	
 		try {
 			URL url=new URL(site);
@@ -76,7 +77,7 @@ public class APIOpenWeather {
 				while((appoggio=reader.readLine())!=null) json+=appoggio;
 			}catch(IOException e) {System.out.println("ERROR: I/O error");}
 			
-	if(info=="actual") {
+	if(type.equals("actual")) {
 			
 				 obj = new JSONObject(json);
 			  data = obj.getJSONArray("list"); 
@@ -87,19 +88,19 @@ public class APIOpenWeather {
 		 }  
 			
 		
-		if(info=="pressureStats" || info=="cloudStats") {
+		if(type.equals("pressure") || type.equals("cloud")) {
 		
 			data = new JSONArray(json);
 					
-			calculateStats(filteredData,data,period,info);
+			calculateStats(data,filteredData,type,period);
 
+		
 		}
 		return filteredData;
 					
 	}
 		
 
-	
 	
 /* Metodo statico private che prende come parametri un vettore di oggetti JSON (jsonData) e una struttura 
  * dati (data) chiamato dal metodo "fillCityDataArray".
@@ -122,59 +123,44 @@ public class APIOpenWeather {
 		
 	}
 	
-	
-	
-	
-	private Vector<AbstractCityData>calculateStats(Vector<AbstractCityData> filteredData,JSONArray data,int period,String nomeParam1){
-		
-		Vector<String> nomi = new Vector <String>();
-		Vector<Integer> contatori = new Vector<Integer>();
-		CityDataStats singleCity ;
-		
-		nomi.add(data.getJSONObject(0).getString("name"));
-		double lat=data.getJSONObject(0).getDouble("lat");
-		double lon=data.getJSONObject(0).getDouble("lon");
-		int param1=data.getJSONObject(0).getInt(nomeParam1);
-		
-		filteredData.add(new CityDataStats(lat,lon,nomi.get(0),param1,Math.pow(param1/100,2)));
-		contatori.add(1);
-		
-		for(int i=1;i<data.length();i++) {
-			
-				JSONObject o = (JSONObject) data.get(i);
-				
-				for(int j=0;j<nomi.size();j++) {
-					
-					if(o.getString("name")==nomi.get(j)) {
-						
-						if(contatori.get(j)==period) break;
-						
-						singleCity = (CityDataStats) filteredData.get(j);
-						
-				singleCity.setParam1Average(singleCity.getParam1Average() + Math.pow(o.getInt(nomeParam1),2));
-				singleCity.setParam1Variance(singleCity.getParam1Variance()+ Math.pow(o.getInt(nomeParam1),2));
-						contatori.set(j,contatori.get(j)+1);
-						
-						break;
-					}
-					else {
-						 lat=data.getJSONObject(0).getDouble("lat");
-						 lon=data.getJSONObject(0).getDouble("lon");
-						 param1=data.getJSONObject(0).getInt(nomeParam1);
-						nomi.add(o.getString("name"));
-						filteredData.add(new CityDataStats(lat,lon,o.getString("name"),param1,Math.pow(param1/100,2)));
-						contatori.add(1);
-					}
-				}
-		}
-		for(AbstractCityData x: filteredData) {
-			((CityDataStats)x).setParam1Average(((CityDataStats) x).getParam1Average()/period);
-			((CityDataStats)x).setParam1Variance((((CityDataStats)x).getParam1Variance()/period) - Math.pow((((CityDataStats)x).getParam1Average())/100,2));
-		}
-		return filteredData;
-		
+   private static void calculateStats(JSONArray jsonData,Vector<AbstractCityData> filteredData,String type,int period) {
+	   
+	   String name;
+	   double lon,lat;
+	   
+	   JSONArray stats;
+	   JSONObject city;
+	   double average=0,variance=0;
+	   
+	   for(int i=0;i<jsonData.length();i++) {
+		   
+		   average=0;
+		   variance=0;
+		   
+		  city = jsonData.getJSONObject(i);
+		  name = city.getString("name");
+		  lon = city.getDouble("lon");
+		  lat = city.getDouble("lat");
 
-}
+		  stats = city.getJSONArray("data");  
+		     
+	                   for(int j=0;j<stats.length(); j++) {
+	                	   
+	                	   average += stats.getJSONObject(j).getInt(type);
+	                       
+	                	   variance += Math.pow( stats.getJSONObject(j).getInt(type), 2 );
+	            	  
+	                   }
+	                   
+	                   average/=period;
+	                   
+	                   variance = variance/period - Math.pow(average, 2); 
+	                   
+	                   filteredData.add(new CityDataStats(lon,lat,name,average,variance));
+	                   
+	              }
+	                 
+   }
 
 	
 }
