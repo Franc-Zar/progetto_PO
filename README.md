@@ -40,4 +40,4 @@ localhost:8080/archive?lat="lat"&lon="lon"&cnt="cnt"
 fornisce all'utente lo **storico** dei dati riguardanti la città scelta, cercata tramite coordinate geografiche (gradi decimali), e le eventuali ulteriori città limitrofe.
 
 ### UML 
-![Casi d'uso]()
+![UseCase_ServizioMeteo](https://user-images.githubusercontent.com/75085155/102118385-eb829f00-3e3f-11eb-81cf-cf6f266c6497.png)
