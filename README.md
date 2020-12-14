@@ -11,13 +11,13 @@ L'applicazione viene avviata su **"localhost:8080"** e sfrutta **tre Path**, dis
 *  cnt = numero totale di città da analizzare (compresa quella di cui sono date le coordinate)
 *  NOTA: se non verranno forniti valori per le keys, l'applicazione ne attribuirà di default
 
-1.
+1)
 ```
 localhost:8080/actual?lat="lat"&lon="lon"&cnt="cnt"  
 ```
 fornisce all'utente **pressione** e **nuvolosità attuali** relative alla città scelta, cercata tramite coordinate geografiche (gradi decimali), e alle eventuali ulteriori città limitrofe.
 
-2.
+2)
 ```
 localhost:8080/stats/{type}/{period}?lat="lat"&lon="lon"&cnt="cnt"  
 ```
@@ -33,7 +33,7 @@ Le **statistiche** consistono in:
 * **calcolo della media** 
 * **calcolo della varianza**
 
-3.
+3)
 ```
 localhost:8080/archive?lat="lat"&lon="lon"&cnt="cnt"  
 ```
