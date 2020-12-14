@@ -9,25 +9,29 @@ L'applicazione viene avviata su **"localhost:8080"** e sfrutta **tre Path**, dis
 *  lat = latitudine
 *  lon = longitudine
 *  cnt = numero totale di città da analizzare (compresa quella di cui sono date le coordinate)
-* NOTA: se non verranno forniti valori per le keys, l'applicazione ne attribuirà di default
+*  NOTA: se non verranno forniti valori per le keys, l'applicazione ne attribuirà di default
 
 ```
 localhost:8080/actual?lat="lat"&lon="lon"&cnt="cnt"  
 ```
-fornisce all'utente **pressione** e **nuvolosità attuali** relative alla città cercata tramite coordinate geografiche (gradi decimali) e alle eventuali ulteriori città limitrofe.
+fornisce all'utente **pressione** e **nuvolosità attuali** relative alla città scelta, cercata tramite coordinate geografiche (gradi decimali), e alle eventuali ulteriori città limitrofe.
 
 ```
 localhost:8080/stats/{type}/{period}?lat="lat"&lon="lon"&cnt="cnt"  
 ```
-fornisce all'utente statistiche riguardanti la **pressione** o la **nuvolosità** relativa alla città, cercata tramite coordinate geografiche (gradi decimali), e alle eventuali ulteriori città limitrofe.
+fornisce all'utente **statistiche** riguardanti la **pressione** o la **nuvolosità** relativa alla città scelta, cercata tramite coordinate geografiche (gradi decimali), e alle eventuali ulteriori città limitrofe.
 
 L'utente dovrà sostituire **{type}** con: 
 *  **pressure** --> se vuole conoscere le informazioni relative alla **pressione**
 *  **cloud** --> se vuole conoscere le informazioni relative alla **nuvolosità**
 
-L'utente dovrà sostituire **{period}** con il valore numerico della **periodicità** sulla quale effettuare le statistiche (misurato in giorni).
+l'utente dovrà sostituire **{period}** con il valore numerico della **periodicità** sulla quale effettuare le statistiche (misurato in giorni).
 
 Le **statistiche** consistono in:
 * **calcolo della media** 
 * **calcolo della varianza**
 
+```
+localhost:8080/archive?lat="lat"&lon="lon"&cnt="cnt"  
+```
+fornisce all'utente lo **storico** dei dati riguardanti la città scelta, cercata tramite coordinate geografiche (gradi decimali), e le eventuali ulteriori città limitrofe.
