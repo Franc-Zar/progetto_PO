@@ -46,6 +46,12 @@ GET | localhost:8080/archive?lat="lat"&lon="lon"&cnt="cnt" |
 
 fornisce all'utente lo **storico** dei dati riguardanti la città scelta, cercata tramite coordinate geografiche (gradi decimali), e le eventuali ulteriori città limitrofe.
 
+* I dati restituiti dall'applicazione hanno i seguenti formati: <br/>
+**/actual**
+![2020-12-15 (2)](https://user-images.githubusercontent.com/75085155/102226559-cf870800-3ee8-11eb-9c5a-c2112578e329.png)
+
+
 ### UML 
 **Casi d'uso**
 ![UseCase_ServizioMeteo](https://user-images.githubusercontent.com/75085155/102118385-eb829f00-3e3f-11eb-81cf-cf6f266c6497.png)
+
