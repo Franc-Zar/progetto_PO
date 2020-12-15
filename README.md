@@ -48,7 +48,7 @@ fornisce all'utente lo **storico** dei dati riguardanti la città scelta, cercat
 
 * I dati restituiti dall'applicazione hanno i seguenti formati: 
   * **informazioni attuali**
-![2020-12-15 (2)](https://user-images.githubusercontent.com/75085155/102226559-cf870800-3ee8-11eb-9c5a-c2112578e329.png)  
+<br/> ![2020-12-15 (2)](https://user-images.githubusercontent.com/75085155/102226559-cf870800-3ee8-11eb-9c5a-c2112578e329.png)  
 
 
 ### UML 
