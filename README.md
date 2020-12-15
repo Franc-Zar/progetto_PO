@@ -28,7 +28,7 @@ fornisce all'utente **statistiche** riguardanti la **pressione** o la **nuvolosi
 
 * L'utente dovrà sostituire **{type}** con: 
   * **pressure** --> se vuole conoscere le informazioni relative alla **pressione**
-  * **cloud** --> se vuole conoscere le informazioni relative alla **nuvolosità**
+  * **clouds** --> se vuole conoscere le informazioni relative alla **nuvolosità**
 
 * L'utente dovrà sostituire **{period}** con:
   * il valore numerico della **periodicità** sulla quale effettuare le statistiche (misurato in giorni).
