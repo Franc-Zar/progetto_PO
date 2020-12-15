@@ -21,7 +21,7 @@ fornisce all'utente **pressione** e **nuvolosità attuali** relative alla città
 ```
 localhost:8080/stats/{type}/{period}?lat="lat"&lon="lon"&cnt="cnt"  
 ```
-fornisce all'utente **statistiche** riguardanti la **pressione** o la **nuvolosità** relativa alla città scelta, cercata tramite coordinate geografiche (gradi decimali), e alle eventuali ulteriori città limitrofe.
+fornisce all'utente **statistiche** riguardanti la **pressione** o la **nuvolosità** relativa alla città scelta, cercata tramite coordinate geografiche (gradi decimali), e alle eventuali ulteriori città limitrofe. 
 
 L'utente dovrà sostituire **{type}** con: 
 *  **pressure** --> se vuole conoscere le informazioni relative alla **pressione**
@@ -32,6 +32,10 @@ l'utente dovrà sostituire **{period}** con il valore numerico della **periodici
 Le **statistiche** consistono in:
 * **calcolo della media** 
 * **calcolo della varianza**
+
+Le città vengono mostrate all'utente ordinatamente rispetto alla **media** del **{type}** selezionato; 
+viene inoltre evidenziata la città con la **varianza massima**
+
 
 3)
 ```
