@@ -6,10 +6,10 @@ La nostra applicazione utilizza l'**API** [Current Weather Data](https://openwea
 L'applicazione viene avviata su **"localhost:8080"** e sfrutta **tre Path**, distinte in funzione dell'operazione richiesta dall'utente:
 
 * **Keys:**
-  *lat = latitudine
-  *lon = longitudine
-  *cnt = numero totale di città da analizzare (compresa quella di cui sono date le coordinate)
-  *NOTA: se non verranno forniti valori per le keys, l'applicazione ne attribuirà di default
+  * lat = latitudine
+  * lon = longitudine
+  * cnt = numero totale di città da analizzare (compresa quella di cui sono date le coordinate)
+  * NOTA: se non verranno forniti valori per le keys, l'applicazione ne attribuirà di default
 
 1)
 Tipo | Path | 
@@ -48,7 +48,7 @@ GET | localhost:8080/archive?lat="lat"&lon="lon"&cnt="cnt" |
 fornisce all'utente lo **storico** dei dati riguardanti la città scelta, cercata tramite coordinate geografiche (gradi decimali), e le eventuali ulteriori città limitrofe.
 
 * I dati restituiti dall'applicazione hanno i seguenti formati: 
-<br/> * **informazioni attuali**
+<br/>  * **informazioni attuali**
 <br/> ![2020-12-15 (2)](https://user-images.githubusercontent.com/75085155/102226559-cf870800-3ee8-11eb-9c5a-c2112578e329.png)  
 
 
