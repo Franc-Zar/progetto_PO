@@ -33,7 +33,7 @@ Le **statistiche** consistono in:
 * **calcolo della media** 
 * **calcolo della varianza**
 
-Le città vengono mostrate all'utente ordinatamente rispetto alla **media** del **{type}** selezionato; 
+Le città vengono mostrate all'utente ordinatamente rispetto alla **media** del **{type}** selezionato; \n
 viene inoltre evidenziata la città con la **varianza massima**
 
 
