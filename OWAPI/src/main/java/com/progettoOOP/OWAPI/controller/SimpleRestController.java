@@ -33,11 +33,16 @@ public class SimpleRestController {
 /* il seguente Path restituisce all'utente un breve recap delle funzionalità dell'applicazione a sua 
 * disposizione 
 */
-	@RequestMapping("/")
+		@RequestMapping("/")
 	public String home() {
-		String instruction="/actual con parametri lat,lon,cnt per i dati al momento corrente\n";
-		instruction+="/stats/{type}/{period} con parametri lat,lon,cnt: type è una stringa corrispondente il dato da studiare,period è un intero dei giorni da considerare";
-		return instruction;
+		return "<!DOCTYPE html>\r\n" + 
+				"<html>\r\n" + 
+				"<body>\r\n" + 
+				"<h1>\t--HOME--</h1>\r\n" + 
+				"<h3>\"\\actual\" con latitudine,longitudine e numero di località da studiare come parametri,per ottenere informazioni riguardo il meteo corrente</h3>\r\n" + 
+				"<h3>\"\\stats\\{type}\\{period}\", come sopra,ma fornendo con period,il numero di giorni da considerare,e con type,il dato fra cloud e pressure che si vuole studiare </h3>\r\n" +
+				"</body>\r\n" + 
+				"</html>";
 	}
 	
 	
