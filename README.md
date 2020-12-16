@@ -61,6 +61,18 @@ fornisce all'utente lo **storico** dei dati riguardanti la città scelta, cercat
 
 
 ### UML 
-**Casi d'uso**
-![UseCase_ServizioMeteo](https://user-images.githubusercontent.com/75085155/102118385-eb829f00-3e3f-11eb-81cf-cf6f266c6497.png)
+* **Casi d'uso**
+<br/> ![UseCase_ServizioMeteo](https://user-images.githubusercontent.com/75085155/102118385-eb829f00-3e3f-11eb-81cf-cf6f266c6497.png)
+* **Classi:**
+<br/>  * Main
+<br/> ![2020-12-16 (7)](https://user-images.githubusercontent.com/75085155/102328364-44108400-3f87-11eb-9840-3eb6f2f52a94.png)
+<br/>  * Controller
+<br/> ![2020-12-16 (8)](https://user-images.githubusercontent.com/75085155/102328698-b2554680-3f87-11eb-92d6-4a03285cc5a6.png)
+<br/>  * Model
+<br/> ![2020-12-16 (9)](https://user-images.githubusercontent.com/75085155/102328899-f7797880-3f87-11eb-827d-f819573e09b3.png)
+<br/>  * Service
+<br/> ![2020-12-16 (10)](https://user-images.githubusercontent.com/75085155/102329007-1b3cbe80-3f88-11eb-925f-e737a43d5e90.png)
+<br/>  * Custom Exceptions
+<br/>
+
 
