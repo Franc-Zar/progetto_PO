@@ -11,6 +11,7 @@ L'applicazione viene avviata su **"localhost:8080"** e sfrutta **tre Path**, dis
   * cnt = numero totale di città da analizzare (compresa quella di cui sono date le coordinate)
   
   <br/> NOTA: se non verranno forniti valori per le keys, l'applicazione ne attribuirà di default
+  <br/> Un breve recap delle funzionalità presenti nell'applicazione è visualizzabile richiamando la path "localhost:8080/"
 
 1)
 Tipo | Path | 
