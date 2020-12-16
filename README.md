@@ -55,7 +55,7 @@ fornisce all'utente lo **storico** dei dati riguardanti la città scelta, cercat
 <br/>![2020-12-15 (6)](https://user-images.githubusercontent.com/75085155/102270380-3246c680-3f1e-11eb-98c6-27d74a22e3f7.png)
   * **media e varianza nuvolosità**
 <br/> ![2020-12-15 (8)](https://user-images.githubusercontent.com/75085155/102271207-62429980-3f1f-11eb-8553-a5c016e753fb.png)
-  * **informazioni dallo storico** 
+  * **informazioni dallo storico (period = 3)** 
 <br/> ![2020-12-15 (10)](https://user-images.githubusercontent.com/75085155/102271588-e432c280-3f1f-11eb-8430-5d9aef011ef1.png)
 
 
