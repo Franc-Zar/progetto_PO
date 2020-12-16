@@ -1,7 +1,6 @@
 package com.progettoOOP.OWAPI.controller;
 
 import java.util.List;
-//import java.util.List;
 import java.util.ArrayList;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +16,8 @@ import com.progettoOOP.OWAPI.service.WeatherServiceImp;
 
 
 
-/* @Author Luigi Smargiassi 
+/**
+ *@Author Luigi Smargiassi 
  * 
  * controller dell'applicazione: sono definite in esso i Path richiamabili dall'utente per usufruire delle 
  * diverse funzionalità
@@ -30,7 +30,8 @@ public class SimpleRestController {
 	@Autowired
 	WeatherServiceImp service;
 	
-/* il seguente Path restituisce all'utente un breve recap delle funzionalità dell'applicazione a sua 
+/**
+*il seguente Path restituisce all'utente un breve recap delle funzionalità dell'applicazione a sua 
 * disposizione 
 */
 		@RequestMapping("/")
@@ -46,10 +47,11 @@ public class SimpleRestController {
 	}
 	
 	
-/* il seguente Path prende come parametri le coordinate della città (lat,lon) e il numero di ulteriori città 
+/* *
+ *il seguente Path prende come parametri le coordinate della città (lat,lon) e il numero di ulteriori città 
  * da analizzare e richiama le funzionalità atte a fornire le informazioni attuali riguardo nuvolosità e pressione
  */
-	@GetMapping("/actual")
+	@RequestMapping(value = "/actual", method = RequestMethod.GET)
 	public ArrayList<AbstractCityData> actualWeather(@RequestParam(name="lat",defaultValue="42.12")double lat,
 												 @RequestParam(name="lon",defaultValue="14.71")double lon,
 												 @RequestParam(name="cnt",defaultValue="1")int cnt){
@@ -57,17 +59,17 @@ public class SimpleRestController {
 	}
 	
 	
-/* il seguente Path prende come parametri le coordinate della città scelta (lat,lon) e l'eventuale 
-*  numero di ulteriori città da analizzare (cnt), il tipo di parametro (type) e il numero di giorni sul quale 
-*  eseguire le statistiche (period). Richiama le funzionalità di calcollo di media e varianza del type scelto
+/**
+* Il seguente Path prende come corpo della richiesta un oggetto della classe RequestBodyClass sel package model,
+* i cui attributi sono le coordinate della città scelta (lat,lon) e l'eventuale numero di ulteriori città da 
+* analizzare (cnt), il tipo di parametro (type) e il numero di giorni sul quale eseguire le statistiche (period).
+*Richiama le funzionalità di calcollo di media e varianza del type scelto
 */
-	@GetMapping("/stats/{type}/{period}")
-	public ArrayList<AbstractCityData> statsWeather(@PathVariable(name="type",required=true)String type,
-												 @PathVariable(name="period",required=true)int period, 
-												 @RequestParam(name="lat",defaultValue="42.12")double lat,
-												 @RequestParam(name="lon",defaultValue="14.71")double lon,
-												 @RequestParam(name="cnt",defaultValue="1")int cnt){
-		return service.statService(period, lat, lon, cnt, type);
+	@PostMapping("/stats/{type}/{period}")
+	public List<AbstractCityData> statsWeather(@PathVariable(name="type",required=true)String type,
+						   @PathVariable(name="period",required=true)int period, 
+						   @RequestBody RequestBodyClass body){
+		return service.statService(period, body.lat, body.lon, body.cnt, type);
 	}
 	
 	
@@ -83,5 +85,5 @@ public class SimpleRestController {
 							 @RequestParam(name="lon",defaultValue="14.71") double lon,
 							 @RequestParam(name="cnt",defaultValue="1")int cnt) {
 		return archive.archiveCall(lat, lon, cnt, period);
-}
+	}
 }
