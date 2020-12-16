@@ -82,7 +82,7 @@ fornisce all'utente lo **storico** dei dati riguardanti la città scelta, cercat
   * info attuali
 <br/> ![2020-12-16 (12)](https://user-images.githubusercontent.com/75085155/102338614-5e9d2a00-3f94-11eb-969f-53b271aaa858.png)
   * info storiche 
-<br/> ![2020-12-16 (14)](https://user-images.githubusercontent.com/75085155/102340788-36fb9100-3f97-11eb-9981-6ef5f81e2abd.png)
+<br/> ![2020-12-16 (14)_LI](https://user-images.githubusercontent.com/75085155/102347422-b0e44800-3fa0-11eb-88cd-ee69738472ba.jpg)
   * chiamata isolata Archivio 
 <br/> ![2020-12-16 (17)](https://user-images.githubusercontent.com/75085155/102343055-5ea02880-3f9a-11eb-9250-44e7e1b66142.png)
 
