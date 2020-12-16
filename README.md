@@ -31,6 +31,7 @@ POST | localhost:8080/stats/{type}/{period}?lat="lat"&lon="lon"&cnt="cnt" |
 
 fornisce all'utente **statistiche** riguardanti, singolarmente **pressione** o **nuvolosità**, e **entrambe contemporaneamente**, relative alla città scelta, cercata tramite coordinate geografiche (gradi decimali), e alle eventuali ulteriori città limitrofe. <br/>
 I parametri di ricerca sono forniti all'applicazione tramite un Request body che ha il seguente formato:
+<br/>
 <br/> ![2020-12-16 (21)](https://user-images.githubusercontent.com/75085155/102383825-447f3e00-3fcc-11eb-9251-c7cc9127e6e4.png)
 
 * L'utente dovrà sostituire **{type}** con: 
