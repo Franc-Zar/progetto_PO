@@ -72,7 +72,10 @@ fornisce all'utente lo **storico** dei dati riguardanti la città scelta, cercat
 <br/> ![2020-12-16 (9)](https://user-images.githubusercontent.com/75085155/102328899-f7797880-3f87-11eb-827d-f819573e09b3.png)
   * Service
 <br/> ![2020-12-16 (10)](https://user-images.githubusercontent.com/75085155/102329007-1b3cbe80-3f88-11eb-925f-e737a43d5e90.png)
-  * Custom Exceptions
-<br/>
+
+* **Sequenze** 
+  * info attuali
+<br/> ![2020-12-16 (12)](https://user-images.githubusercontent.com/75085155/102338614-5e9d2a00-3f94-11eb-969f-53b271aaa858.png)
+
 
 
