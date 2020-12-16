@@ -33,7 +33,8 @@ fornisce all'utente **statistiche** riguardanti la **pressione** o la **nuvolosi
 
 * L'utente dovrà sostituire **{type}** con: 
   * **pressure** --> se vuole conoscere le informazioni relative alla **pressione**
-  * **clouds** --> se vuole conoscere le informazioni relative alla **nuvolosità**
+  * **cloud** --> se vuole conoscere le informazioni relative alla **nuvolosità**
+  * **all** --> se vuole conoscere le informazioni di media e varianza relative 
 
 * L'utente dovrà sostituire **{period}** con:
   * il valore numerico della **periodicità** sulla quale effettuare le statistiche (misurato in giorni).
@@ -42,8 +43,8 @@ fornisce all'utente **statistiche** riguardanti la **pressione** o la **nuvolosi
   * **calcolo della media** 
   * **calcolo della varianza**
 
-Le città vengono mostrate all'utente ordinatamente rispetto alla **media** del **{type}** selezionato; <br/>
-viene inoltre evidenziata la città con la **varianza massima**
+Le città vengono mostrate all'utente ordinatamente rispetto alla **media**, nel caso in cui **{type}** sia un singolo parametro **(cloud o pressure)** ; <br/>
+in tal caso viene inoltre evidenziata la città con la **varianza massima** 
 
 
 3)
