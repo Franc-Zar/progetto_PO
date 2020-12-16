@@ -60,10 +60,16 @@ public class OpenWeather {
 		}
 		else if(type.equals("pressure") || type.equals("cloud")) {	
 			data = new JSONArray(json);
-			calculateStats(data,filteredData,type,period);
+			getStats(data,filteredData,type,period);
 			Arrays.asList(filteredData);
 			Collections.sort(filteredData);
 			findMaxVariance(filteredData);
+			
+		}
+		else if(type.equals("all")) {
+			
+			data = new JSONArray(json);
+			getStats(data, filteredData, type, period);
 			
 		}
 		else throw new IllegalArgumentException("ERROR: Invalid type string");
@@ -76,32 +82,15 @@ public class OpenWeather {
 	 * effettuare le statistiche (type = pressure/cloud) e il periodo (period) sul quale calcolare tali statistiche
 	 * (media e varianza) 
 	 */
-	private void calculateStats(JSONArray data, ArrayList<AbstractCityData> filteredData, String type, int period) {
-		String name;
-		double lon,lat;
-		   
-	   JSONArray stats;
-	   JSONObject o;
-	   double average=0,variance=0;
-		   
-	   for(int i=0;i<data.length();i++) {
-		   average=0;
-		   variance=0;
-		   o = data.getJSONObject(i);
-		   name = o.getString("name");
-		   lon = o.getDouble("lon");
-		   lat = o.getDouble("lat");
-		   stats = o.getJSONArray("data"); 
-		   
-		   for(int j=0;j<stats.length(); j++) {
-			   average += stats.getJSONObject(j).getInt(type);	                       
-			   variance += Math.pow( stats.getJSONObject(j).getInt(type), 2 );
-           }
-		   average/=period;
-		   variance = variance/period - Math.pow(average, 2); 
-		   filteredData.add(new CityDataStats(lat,lon,name,average,variance));
-	   }
-	}
+	private void getStats(JSONArray data, ArrayList<AbstractCityData> filteredData, String type, int period) {
+		
+		
+	if(type.equals("all")) Filters.calculateStats(data, filteredData, period, "cloud","pressure");
+		
+	   else Filters.calculateStats(data, filteredData, period, type);
+	   
+	 
+}
 
 /* metodo private che prende come parametro un JSONArray contenente i dati ottenuti dalla chiamata all'API 
  * (data) e un ArrayList (filterdData). Il metodo popola "filteredData" con le città cercate e i 
