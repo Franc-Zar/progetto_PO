@@ -1,3 +1,6 @@
+## Autori 
+* Luigi Smargiassi
+* Francesco Zaritto
 # Spring boot rest API OpenWeather 
 Il seguente progetto è relativo all'appello di **programmazione a oggetti di gennaio 2020/2021**.
 ## WeatherService
@@ -83,6 +86,4 @@ fornisce all'utente lo **storico** dei dati riguardanti la città scelta, cercat
 <br/> ![2020-12-16 (17)](https://user-images.githubusercontent.com/75085155/102343055-5ea02880-3f9a-11eb-9250-44e7e1b66142.png)
 
 
-## Autori 
-* Luigi Smargiassi
-* Francesco Zaritto
+
