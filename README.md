@@ -27,14 +27,15 @@ fornisce all'utente **pressione** e **nuvolosità attuali** relative alla città
 2)
 Tipo | Path | 
 ---- | ---- | 
-GET | localhost:8080/stats/{type}/{period}?lat="lat"&lon="lon"&cnt="cnt" |
+POST | localhost:8080/stats/{type}/{period}?lat="lat"&lon="lon"&cnt="cnt" |
 
-fornisce all'utente **statistiche** riguardanti la **pressione** o la **nuvolosità** relativa alla città scelta, cercata tramite coordinate geografiche (gradi decimali), e alle eventuali ulteriori città limitrofe. 
+fornisce all'utente **statistiche** riguardanti, singolarmente **pressione** o **nuvolosità**, e **entrambe contemporaneamente**, relative alla città scelta, cercata tramite coordinate geografiche (gradi decimali), e alle eventuali ulteriori città limitrofe. I parametri di ricerca sono forniti all'applicazione tramite un Request body che ha il seguente formato:
+<br/> ![2020-12-16 (21)](https://user-images.githubusercontent.com/75085155/102383825-447f3e00-3fcc-11eb-9251-c7cc9127e6e4.png)
 
 * L'utente dovrà sostituire **{type}** con: 
   * **pressure** --> se vuole conoscere le informazioni relative alla **pressione**
   * **cloud** --> se vuole conoscere le informazioni relative alla **nuvolosità**
-  * **all** --> se vuole conoscere le informazioni di media e varianza relative 
+  * **all** --> se vuole conoscere le informazioni di media e varianza relative contemporaneamente a **pressione** e **nuvolosità**
 
 * L'utente dovrà sostituire **{period}** con:
   * il valore numerico della **periodicità** sulla quale effettuare le statistiche (misurato in giorni).
@@ -43,7 +44,7 @@ fornisce all'utente **statistiche** riguardanti la **pressione** o la **nuvolosi
   * **calcolo della media** 
   * **calcolo della varianza**
 
-Le città vengono mostrate all'utente ordinatamente rispetto alla **media**, nel caso in cui **{type}** sia un singolo parametro **(cloud o pressure)** ; <br/>
+* Le città vengono mostrate all'utente ordinatamente rispetto alla **media**, nel caso in cui **{type}** sia un singolo parametro **(cloud o pressure)** ; <br/>
 in tal caso viene inoltre evidenziata la città con la **varianza massima** 
 
 
