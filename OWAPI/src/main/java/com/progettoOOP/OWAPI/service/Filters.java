@@ -12,12 +12,15 @@ import com.progettoOOP.OWAPI.model.CityDataStatsAll;
 
 /** @Author Francesco Zaritto
  * 
- *
- *
+ * Classe di visibilità di default, i cui metodi eseguono operazioni riguardanti il calcolo delle statistiche
  */
-public class Filters {
+ class Filters {
 	
-	public static void calculateStats(JSONArray data, ArrayList<AbstractCityData> filteredData,int period,String param1) {
+	 /** Classe protected che prende come parametri un JSONArray contenente i dati di archivio (data), un ArrayList che ospiterà i dati
+	 * filtrati, dopo il ccalcolo, in funzione delle richieste dell'utente (filteredData), il periodo sul quale eseguire le statistiche (period) e una Stringa
+	 * contenente il nome del parametro sul quale la funzione andrà a calcolare media e varianza (param1)
+	 */
+	protected static void calculateStats(JSONArray data, ArrayList<AbstractCityData> filteredData,int period,String param1) {
 		
 		JSONArray stats;
 		JSONObject obj;
@@ -46,8 +49,9 @@ public class Filters {
 		}
 		
 		
-	
-public static void calculateStats(JSONArray data, ArrayList<AbstractCityData> filteredData,int period,String param1,String param2) {
+	/** Overloading del precedente metodo: esegue il calcolo di media e varianza su due parametri richiesti dall'utente (param1,param2)
+	*/
+protected static void calculateStats(JSONArray data, ArrayList<AbstractCityData> filteredData,int period,String param1,String param2) {
 	
 	JSONArray stats;
     JSONObject obj;
@@ -81,19 +85,8 @@ public static void calculateStats(JSONArray data, ArrayList<AbstractCityData> fi
 		   
 		   filteredData.add(new CityDataStatsAll(lat,lon,name,param1Average,param1Variance,param2Average,param2Variance));
 	   }
-	
-	
-	
-	
-	
-	
-	
-	
 		
-	}
-	
-	
-	
+     }
 	
 }
 	
