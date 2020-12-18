@@ -19,7 +19,7 @@ import com.progettoOOP.OWAPI.model.AbstractCityData;
 public class OpenWeather {
 	
 	//key necessaria per chiamare l'API
-	private final static String APIkey="bd0426afbb623d69f91f5c3f70b6613d";
+	private final static String APIkey=FileUtilities.getFileContent("src/main/resources/APIkey.txt");
 
 /* metodo public che prende in input le coordinate geografiche (lat,lon), il periodo entro il quale definire
  * i dati (period=0 nel caso di informazioni attuali), il numero totale di città da analizzare (cnt = 1 default)
