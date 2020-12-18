@@ -84,9 +84,12 @@ fornisce all'utente lo **storico** dei dati riguardanti la città scelta, cercat
   * Controller
 <br/> ![2020-12-18 (1)](https://user-images.githubusercontent.com/75085155/102604693-db5f0e00-4124-11eb-9785-e9cf0403983f.png)
   * Model
-<br/> ![2020-12-18 (5)](https://user-images.githubusercontent.com/75085155/102604897-0ba6ac80-4125-11eb-8183-fa667c791f46.png)
+<br/> ![2020-12-18 (7)](https://user-images.githubusercontent.com/75085155/102607439-98069e80-4128-11eb-9bc4-a42e75e3d83c.png)
   * Service
 <br/> ![2020-12-18 (6)](https://user-images.githubusercontent.com/75085155/102605202-3d1f7800-4125-11eb-8f13-6adace6e3567.png)
+  * Utilities
+<br/> ![2020-12-18 (9)](https://user-images.githubusercontent.com/75085155/102607295-583fb700-4128-11eb-94fc-a5f017865f18.png)
+
 
 * **Sequenze** 
   * info attuali
