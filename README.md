@@ -101,5 +101,8 @@ fornisce all'utente lo **storico** dei dati riguardanti la città scelta, cercat
   * chiamata isolata archivio
 <br/> ![lalal](https://user-images.githubusercontent.com/75085155/102637519-6ad0e500-4156-11eb-96f2-d06249cb6731.png)
 
+  * update Archivio
+ <br/> ![lelelel](https://user-images.githubusercontent.com/75085155/102643247-4299b400-415f-11eb-8b00-10ac6147f844.png)
+
 
 
