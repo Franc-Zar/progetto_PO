@@ -84,10 +84,11 @@ public class Archive {
 	}
 	
 	
-	/* metodo private che prende come parametri il fileID e il periodo di calcolo delle statistiche (period) 
+	/** metodo private che prende come parametri il fileID e il periodo di calcolo delle statistiche (period) 
 	 * e restituisce una stringa contenente la parte dell'archivio della città interessata corrispondente
 	 * al periodo richiesto 
 	 * 
+	 *@throws IllegalArgumentException
 	 */
 	private String getCityArchive (String fileID,int period)throws IllegalArgumentException {
 		String json=getFileContent(path+fileID+".txt");
