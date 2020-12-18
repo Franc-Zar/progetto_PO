@@ -29,7 +29,7 @@ Tipo | Path |
 ---- | ---- | 
 POST | localhost:8080/stats/{type}/{period}?lat="lat"&lon="lon"&cnt="cnt" |
 
-fornisce all'utente **statistiche** riguardanti:
+*  fornisce all'utente **statistiche** riguardanti:
   * **pressione** 
   * **nuvolosità** 
   * **entrambe contemporaneamente** <br/>
