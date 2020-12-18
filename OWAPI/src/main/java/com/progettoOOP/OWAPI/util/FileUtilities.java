@@ -65,6 +65,10 @@ public class FileUtilities {
 
 }
 	
+	/**
+	 *  Metodo public static che prende come parametri il path del file (filePath) e il nuovo contenuto da 
+	 *  sovrascrivere nel file (newContent)
+	 */
 	public static void overWrite(String filePath,String newContent) {
 	
 	try {
