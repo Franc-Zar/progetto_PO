@@ -1,6 +1,5 @@
 package com.progettoOOP.OWAPI;
 
-import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
@@ -15,6 +14,7 @@ import ch.qos.logback.classic.Logger;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 
@@ -32,12 +32,14 @@ public class OwapiApplication {
 	private static final ArrayList<RequestBodyClass> CityList = new ArrayList<RequestBodyClass>() {
 		 
 	{
-			 add(new RequestBodyClass(42.88,13.91,1));
-					add(new RequestBodyClass(42.93,13.89,1));
-							add(new RequestBodyClass(42.87,13.87,1));
-									add(new RequestBodyClass(42.12,14.71,1));
-											add(new RequestBodyClass(42.09,14.73,1));
-											}};
+		try{
+			JSONarray jarr=new JSONArray(FileUtilities.getFileContent());
+			for(int i=0; i<jarr.length();i++) {
+				JSONObject o=jarr.getJSONObject(i);
+				add(new RequestBodyClass(o.getDouble("lat"),o.getDouble("lon"),1);
+			}
+		}catch (JSONException e) {e.printStackTrace();}
+	}};
 											
 			
 	
@@ -46,10 +48,14 @@ private static final ArrayList<Integer> fileIDs = new ArrayList<Integer> () {
 
 
 {
-		
-	for(int i=0; i<CityList.size();i++) add(i+1);
-		
-	}};
+	try{
+		JSONarray jarr=new JSONArray(FileUtilities.getFileContent());
+		for(int i=0; i<jarr.length();i++) {
+			JSONObject o=jarr.getJSONObject(i);
+			add(o.getString("fileID"));
+		}
+	}catch (JSONException e) {e.printStackTrace();}
+}};
 
 	
 	
@@ -109,6 +115,8 @@ void updateArchive() {
 @EnableScheduling
 @ConditionalOnProperty(name = "scheduling.enabled", matchIfMissing = true)
 class SchedulingConfiguration {}
+
+
 
 
 }
