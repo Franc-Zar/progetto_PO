@@ -6,21 +6,18 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import com.progettoOOP.OWAPI.model.AbstractCityData;
+import com.progettoOOP.OWAPI.model.CityData;
 import com.progettoOOP.OWAPI.model.CityDataStats;
 import com.progettoOOP.OWAPI.model.CityDataStatsAll;
+import com.progettoOOP.OWAPI.model.maxVarianceCity;
 
 
 /** @Author Francesco Zaritto
  * 
- * Classe di visibilità di default, i cui metodi eseguono operazioni riguardanti il calcolo delle statistiche
  */
  class Filters {
 	
-	 /** Classe protected che prende come parametri un JSONArray contenente i dati di archivio (data), un ArrayList che ospiterà i dati
-	 * filtrati, dopo il ccalcolo, in funzione delle richieste dell'utente (filteredData), il periodo sul quale eseguire le statistiche (period) e una Stringa
-	 * contenente il nome del parametro sul quale la funzione andrà a calcolare media e varianza (param1)
-	 */
-	protected static void calculateStats(JSONArray data, ArrayList<AbstractCityData> filteredData,int period,String param1) {
+protected static void calculateStats(JSONArray data, ArrayList<AbstractCityData> filteredData,int period,String param1) {
 		
 		JSONArray stats;
 		JSONObject obj;
@@ -49,8 +46,7 @@ import com.progettoOOP.OWAPI.model.CityDataStatsAll;
 		}
 		
 		
-	/** Overloading del precedente metodo: esegue il calcolo di media e varianza su due parametri richiesti dall'utente (param1,param2)
-	*/
+	
 protected static void calculateStats(JSONArray data, ArrayList<AbstractCityData> filteredData,int period,String param1,String param2) {
 	
 	JSONArray stats;
@@ -85,25 +81,57 @@ protected static void calculateStats(JSONArray data, ArrayList<AbstractCityData>
 		   
 		   filteredData.add(new CityDataStatsAll(lat,lon,name,param1Average,param1Variance,param2Average,param2Variance));
 	   }
+	
+}	
+	
+	/* metodo protected static che prende come parametro un JSONArray contenente i dati ottenuti dalla chiamata all'API 
+	 * (data) e un ArrayList (filterdData). Il metodo popola "filteredData" con le città cercate e i 
+	 * corrispondenti valori di pressione e nuvolosità, filtrati dalla totalità di informazioni fornite dall'API
+	 */
+		protected static void filterData(JSONArray data, ArrayList<AbstractCityData> filteredData) {
+			String name;
+			double lon,lat;
+			int pressure,clouds;
+			
+			for(int i=0; i<data.length();i++) {	
+				name = data.getJSONObject(i).getString("name");
+				lon = data.getJSONObject(i).getJSONObject("coord").getDouble("lon");
+				lat = data.getJSONObject(i).getJSONObject("coord").getDouble("lat");
+				pressure = data.getJSONObject(i).getJSONObject("main").getInt("pressure");
+				clouds = data.getJSONObject(i).getJSONObject("clouds").getInt("all");
+				filteredData.add(new CityData(lat,lon,name,clouds,pressure));
+			}	
+		}
 		
-     }
-	
-}
 	
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-
-
+ /* metodo private che prende come parametro una ArrayList di dati ordinati rispetto alla media di 
+  * nuvolosità/pressione e la restituisce dopo aver aggiunto, come ultimo elemento, la città che presenta
+  * varianza massima di nuvolosità/pressione
+  */
+ 	protected static void findMaxVariance(ArrayList<AbstractCityData> filteredData) {
+ 		
+ 		double maxVariance = ((CityDataStats) filteredData.get(0)).getVariance();
+         double lat = ((CityDataStats) filteredData.get(0)).getLat();
+ 	    double lon = ((CityDataStats) filteredData.get(0)).getLon();
+ 	    double newVariance;
+ 	      
+         String name = ((CityDataStats) filteredData.get(0)).getName();
+ 		
+ 		for(int i=0; i<filteredData.size(); i++) {
+ 			     
+ 			newVariance = ((CityDataStats) filteredData.get(i)).getVariance();
+ 			
+ 			            if(maxVariance < newVariance) {
+ 			            	
+ 			            	     maxVariance = newVariance;
+ 			            	     name = ((CityDataStats) filteredData.get(i)).getName();
+ 			            	     lat = ((CityDataStats) filteredData.get(i)).getLat();
+ 			            	     lon = ((CityDataStats) filteredData.get(i)).getLon();
+ 			          } }
+ 	
+ 		filteredData.add(new maxVarianceCity(lat,lon,name,maxVariance));
+ 		
+ 		}           	                          
+ 			
+ 	}
