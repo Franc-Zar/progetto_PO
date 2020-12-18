@@ -19,8 +19,7 @@ import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 
-/**Main dell'applicazione generato da Spring boot  
-*/
+
 
 @SpringBootApplication
 public class OwapiApplication {
@@ -29,12 +28,15 @@ public class OwapiApplication {
 	
 	private static final Logger LOGGER = (Logger) LoggerFactory.getLogger(OwapiApplication.class);
 	
+	
+	/** ArrayList contenente le coordinate delle città dell'archivio
+	 */
 	@SuppressWarnings("serial")
 	private static final ArrayList<RequestBodyClass> CityList = new ArrayList<RequestBodyClass>() {
 		 
 	{
 		try{
-			JSONArray jarr=new JSONArray(FileUtilities.getFileContent("src/main/resources/elencoCitta.txt"));
+			JSONArray jarr = new JSONArray(FileUtilities.getFileContent("src/main/resources/ElencoCitta.txt"));
 			for(int i=0; i<jarr.length();i++) {
 				JSONObject o=jarr.getJSONObject(i);
 				add(new RequestBodyClass(o.getDouble("lat"),o.getDouble("lon"),1));
@@ -43,14 +45,13 @@ public class OwapiApplication {
 	}};
 											
 			
-	
+	/** ArrayList contenente i fileIDs delle città 
+	 */
 @SuppressWarnings("serial")
 private static final ArrayList<String> fileIDs = new ArrayList<String> () {
-
-
 {
 	try{
-		JSONArray jarr=new JSONArray(FileUtilities.getFileContent("src/main/resources/elencoCitta.txt"));
+		JSONArray jarr=new JSONArray(FileUtilities.getFileContent("src/main/resources/ElencoCitta.txt"));
 		for(int i=0; i<jarr.length();i++) {
 			JSONObject o=jarr.getJSONObject(i);
 			add(o.getString("fileID"));
@@ -59,13 +60,17 @@ private static final ArrayList<String> fileIDs = new ArrayList<String> () {
 }};
 
 	
-	
+/** Main dell'applicazione generato da Spring boot  
+*/
 	public static void main(String[] args) {
 		SpringApplication.run(OwapiApplication.class, args);
 	}
 
 
 
+/** metodo void che esegue ogni due ore l'update dell'archivio dati storici delle città
+ * 	
+ */
 @Scheduled(cron = "0 0 */2 * * ?")	
 void updateArchive() {
 	
@@ -98,16 +103,27 @@ void updateArchive() {
 	     
 	     actualInfo = ",{\"cloud\":" + cloud + ", \"pressure\":"+pressure+"}]}";
 			 
-	    
-	     
 	       newArchive = FileUtilities.getFileContent("src/main/resources/" + thisFileID + ".txt");
 	       
+	       try {
 	       newArchive = newArchive.substring(0,newArchive.length()-2) + actualInfo; 
-		     
+	       } catch(IndexOutOfBoundsException e) {System.out.println("ERROR: Archive's insufficient length");
+	       }
 		      FileUtilities.overWrite("src/main/resources/" + thisFileID + ".txt", newArchive);
 			
 
 	} LOGGER.info("Archive updated successfully");
 	
 		
+}
+
+
+@Configuration
+@EnableScheduling
+@ConditionalOnProperty(name = "scheduling.enabled", matchIfMissing = true)
+class SchedulingConfiguration {}
+
+
+
+
 }
