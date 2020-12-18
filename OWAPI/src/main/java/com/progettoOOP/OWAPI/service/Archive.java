@@ -1,19 +1,16 @@
 package com.progettoOOP.OWAPI.service;
 
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
 import java.util.List;
 import java.util.ArrayList;
-import java.lang.IndexOutOfBoundsException;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.springframework.stereotype.Service;
 
-/*
+import com.progettoOOP.OWAPI.util.FileUtilities;
+
+/**
 @Author Francesco Zaritto
 @Author Luigi Smargiassi
 
@@ -30,7 +27,7 @@ public class Archive {
 	
 	
 	
-	/* metodo public che prende come parametri latitudine (lat) e longitudine (lon) della città scelta, 
+	/** metodo public che prende come parametri latitudine (lat) e longitudine (lon) della città scelta, 
 	 * numero di città (cnt), periodo di calcolo delle statistiche (period); restituisce una lista contenente
 	 * i file di archivio delle città cercate, filtrati nel contenuto tramite "period", utili al successivo
 	 * calcolo delle statistiche di media e varianza
@@ -43,20 +40,18 @@ public class Archive {
 			for(int i=0; i<fileIDs.size();i++)
 				try {
 					a.put(new JSONObject(getCityArchive(fileIDs.get(i), period)));
-				} catch(IllegalArgumentException e){e.printStackTrace();}
-				  catch(JSONException e){e.printStackTrace();}
-			          catch (IndexOutOfBoundsException e) {e.printStackTrace();}
+				} catch (Exception e) {e.printStackTrace();}
 			return  a.toList();
 	}
 
 	
-	/* metodo private che prende come parametri latitudine (lat) e longitudine (lon) della città scelta,
+	/** metodo private che prende come parametri latitudine (lat) e longitudine (lon) della città scelta,
 	 * numero città (cnt); cerca il numero "cnt" di città limitrofe definendo una serie di circonferenze, 
 	 * di centro la città selezionata tramite coordinate, di raggio sempre maggiore e restituisce una 
 	 * ArrayList di stringhe contenente i fileIDs delle città trovate.
 	 */
 	private ArrayList<String> getFileIDs(double lat,double lon,int cnt){
-		String json=getFileContent(path+nomeFileElenco);
+		String json=FileUtilities.getFileContent(path+nomeFileElenco);
 		ArrayList<String> cities= new ArrayList<String>();
 		
 		try {
@@ -88,10 +83,9 @@ public class Archive {
 	 * e restituisce una stringa contenente la parte dell'archivio della città interessata corrispondente
 	 * al periodo richiesto 
 	 * 
-	 *@throws IllegalArgumentException
 	 */
-	private String getCityArchive (String fileID,int period)throws IllegalArgumentException {
-		String json=getFileContent(path+fileID+".txt");
+	private String getCityArchive (String fileID,int period) {
+		String json=FileUtilities.getFileContent(path+fileID+".txt");
 		JSONObject o= new JSONObject(json);	
 		JSONArray jarr=o.getJSONArray("data");
 		
@@ -100,24 +94,8 @@ public class Archive {
 			o.remove("data");
 			o.put("data", jarr);
 		}
-		else throw new IllegalArgumentException();
 		return o.toString();
 	}
 	
-	/* metodo private che prende come parametro la stringa corrispondente al nome del file (fileName) 
-	 * e restituisce, come stringa, il contenuto del file stesso
-	 * 
-	 */
-	private String getFileContent(String fileName) {
-		String content="";
-		try {
-			BufferedReader reader=new BufferedReader(new FileReader(fileName));
-			try {
-				String line="";
-				while((line=reader.readLine())!=null) content+=line;
-			}catch (IOException e) {e.printStackTrace();}
-		}catch (FileNotFoundException e){e.printStackTrace();}
-		return content;
-	}
 
 }
