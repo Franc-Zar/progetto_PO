@@ -44,8 +44,8 @@ public class Archive {
 				try {
 					a.put(new JSONObject(getCityArchive(fileIDs.get(i), period)));
 				} catch(IllegalArgumentException e){e.printStackTrace();}
-				  catch/JSONException e){e.printStackTrace();}
-			    	  catch (IndexOutOfBoundExceptionException e) {e.printStackTrace();}
+				  catch(JSONException e){e.printStackTrace();}
+			          catch (IndexOutOfBoundsException e) {e.printStackTrace();}
 			return  a.toList();
 	}
 
