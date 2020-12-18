@@ -12,6 +12,7 @@ import com.progettoOOP.OWAPI.util.FileUtilities;
 
 import ch.qos.logback.classic.Logger;
 
+import org.json.JSONException;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.slf4j.LoggerFactory;
@@ -33,10 +34,10 @@ public class OwapiApplication {
 		 
 	{
 		try{
-			JSONarray jarr=new JSONArray(FileUtilities.getFileContent());
+			JSONArray jarr=new JSONArray(FileUtilities.getFileContent("src/main/resources/elencoCitta.txt"));
 			for(int i=0; i<jarr.length();i++) {
 				JSONObject o=jarr.getJSONObject(i);
-				add(new RequestBodyClass(o.getDouble("lat"),o.getDouble("lon"),1);
+				add(new RequestBodyClass(o.getDouble("lat"),o.getDouble("lon"),1));
 			}
 		}catch (JSONException e) {e.printStackTrace();}
 	}};
@@ -44,12 +45,12 @@ public class OwapiApplication {
 			
 	
 @SuppressWarnings("serial")
-private static final ArrayList<Integer> fileIDs = new ArrayList<Integer> () {
+private static final ArrayList<String> fileIDs = new ArrayList<String> () {
 
 
 {
 	try{
-		JSONarray jarr=new JSONArray(FileUtilities.getFileContent());
+		JSONArray jarr=new JSONArray(FileUtilities.getFileContent("src/main/resources/elencoCitta.txt"));
 		for(int i=0; i<jarr.length();i++) {
 			JSONObject o=jarr.getJSONObject(i);
 			add(o.getString("fileID"));
@@ -71,7 +72,8 @@ void updateArchive() {
 	
 	JSONArray dataArray;
 	JSONObject actualData;
-	int cloud,pressure,thisFileID;
+	int cloud,pressure;
+	String thisFileID;
 	String site, actualInfo;
 	String newArchive="";
 	RequestBodyClass singleCity;
@@ -108,15 +110,4 @@ void updateArchive() {
 	} LOGGER.info("Archive updated successfully");
 	
 		
-}
-
-
-@Configuration
-@EnableScheduling
-@ConditionalOnProperty(name = "scheduling.enabled", matchIfMissing = true)
-class SchedulingConfiguration {}
-
-
-
-
 }
