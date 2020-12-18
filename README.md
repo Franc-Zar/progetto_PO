@@ -80,13 +80,13 @@ fornisce all'utente lo **storico** dei dati riguardanti la città scelta, cercat
 <br/> ![UseCase_ServizioMeteo](https://user-images.githubusercontent.com/75085155/102118385-eb829f00-3e3f-11eb-81cf-cf6f266c6497.png)
 * **Classi:**
   * Main
-<br/> ![2020-12-16 (7)](https://user-images.githubusercontent.com/75085155/102328364-44108400-3f87-11eb-9840-3eb6f2f52a94.png)
+<br/> ![2020-12-18](https://user-images.githubusercontent.com/75085155/102605297-5de7cd80-4125-11eb-9e7c-b52877af08f9.png)
   * Controller
-<br/> ![2020-12-16 (8)](https://user-images.githubusercontent.com/75085155/102328698-b2554680-3f87-11eb-92d6-4a03285cc5a6.png)
+<br/> ![2020-12-18 (1)](https://user-images.githubusercontent.com/75085155/102604693-db5f0e00-4124-11eb-9785-e9cf0403983f.png)
   * Model
-<br/> ![2020-12-16 (9)](https://user-images.githubusercontent.com/75085155/102328899-f7797880-3f87-11eb-827d-f819573e09b3.png)
+<br/> ![2020-12-18 (5)](https://user-images.githubusercontent.com/75085155/102604897-0ba6ac80-4125-11eb-8183-fa667c791f46.png)
   * Service
-<br/> ![2020-12-16 (10)](https://user-images.githubusercontent.com/75085155/102329007-1b3cbe80-3f88-11eb-925f-e737a43d5e90.png)
+<br/> ![2020-12-18 (6)](https://user-images.githubusercontent.com/75085155/102605202-3d1f7800-4125-11eb-8f13-6adace6e3567.png)
 
 * **Sequenze** 
   * info attuali
