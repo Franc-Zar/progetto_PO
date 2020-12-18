@@ -30,9 +30,9 @@ Tipo | Path |
 POST | localhost:8080/stats/{type}/{period}?lat="lat"&lon="lon"&cnt="cnt" |
 
 fornisce all'utente **statistiche** riguardanti:
-* **pressione** 
-* **nuvolosità** 
-* **entrambe contemporaneamente** <br/>
+  * **pressione** 
+  * **nuvolosità** 
+  * **entrambe contemporaneamente** <br/>
 relative alla città scelta, cercata tramite coordinate geografiche (gradi decimali), e alle eventuali ulteriori città limitrofe. <br/>
 I parametri di ricerca sono forniti all'applicazione tramite un Request body che ha il seguente formato:
 <br/>
