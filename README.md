@@ -27,7 +27,7 @@ fornisce all'utente **pressione** e **nuvolosità attuali** relative alla città
 2)
 Tipo | Path | 
 ---- | ---- | 
-POST | localhost:8080/stats/{type}/{period}?lat="lat"&lon="lon"&cnt="cnt" |
+POST | localhost:8080/stats/{type}/{period} |
 
   * fornisce all'utente **statistiche** riguardanti:
     * **pressione** 
