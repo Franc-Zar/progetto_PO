@@ -14,6 +14,26 @@ import com.progettoOOP.OWAPI.model.AbstractCityData;
 import com.progettoOOP.OWAPI.service.Archive;
 import com.progettoOOP.OWAPI.service.WeatherServiceImp;
 
+package com.progettoOOP.OWAPI.controller;
+
+import java.util.List;
+import java.util.ArrayList;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.progettoOOP.OWAPI.model.AbstractCityData;
+import com.progettoOOP.OWAPI.model.RequestBodyClass;
+import com.progettoOOP.OWAPI.service.Archive;
+import com.progettoOOP.OWAPI.service.WeatherServiceImp;
+
 
 
 /**
@@ -69,7 +89,7 @@ public class SimpleRestController {
 	public List<AbstractCityData> statsWeather(@PathVariable(name="type",required=true)String type,
 						   @PathVariable(name="period",required=true)int period, 
 						   @RequestBody RequestBodyClass body){
-		return service.statService(period, body.lat, body.lon, body.cnt, type);
+		return service.statService(period, body.getLat(), body.getLon(), body.getCnt(), type);
 	}
 	
 	
