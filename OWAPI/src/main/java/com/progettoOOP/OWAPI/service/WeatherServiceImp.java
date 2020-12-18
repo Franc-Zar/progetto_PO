@@ -10,8 +10,6 @@ import com.progettoOOP.OWAPI.model.AbstractCityData;
  */
 @Service
 public class WeatherServiceImp implements WeatherService {
-
-	private OpenWeather ow = new OpenWeather();
 	
 	
 /* metodo public che prende come parametri le coordinate della città (lat,lon) e il numero cnt di città da analizzare.
@@ -21,7 +19,7 @@ public class WeatherServiceImp implements WeatherService {
 	@Override
 	public ArrayList<AbstractCityData> actualService(double lat, double lon, int cnt) {
 		try {
-			return ow.APIcall(lat, lon, 0, cnt, "actual");
+			return OpenWeather.APIcall(lat, lon, 0, cnt, "actual");
 		}catch (Exception e){e.printStackTrace();}
 		
 		return null;
@@ -37,7 +35,7 @@ public class WeatherServiceImp implements WeatherService {
 	@Override
 	public ArrayList<AbstractCityData> statService(int period, double lat, double lon, int cnt, String type) {
 		try {
-			 return ow.APIcall(lat, lon, period, cnt, type);
+			 return OpenWeather.APIcall(lat, lon, period, cnt, type);
 		}catch (Exception e) {e.printStackTrace();}
 		return null;
 	}
