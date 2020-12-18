@@ -93,9 +93,11 @@ fornisce all'utente lo **storico** dei dati riguardanti la città scelta, cercat
 
 * **Sequenze** 
   * info attuali
-<br/> ![eskere](https://user-images.githubusercontent.com/75085155/102626791-94364480-4147-11eb-8007-056ed83791d4.png)
+<br/> ![new_diagram](https://user-images.githubusercontent.com/75085155/102635433-97373200-4153-11eb-9206-809f925fb84c.png)
+
   * info storiche 
-<br/> ![2020-12-16 (14)_LI](https://user-images.githubusercontent.com/75085155/102347422-b0e44800-3fa0-11eb-88cd-ee69738472ba.jpg)
+<br/> ![uuouo](https://user-images.githubusercontent.com/75085155/102635350-7969cd00-4153-11eb-96eb-bc0a62de62f8.png)
+
   * chiamata isolata archivio
 <br/> ![2020-12-16 (19)](https://user-images.githubusercontent.com/75085155/102365485-e5173300-3fb7-11eb-80c1-1005a74ae85c.png)
 
