@@ -6,6 +6,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.List;
 import java.util.ArrayList;
+import java.lang.IndexOutOfBoundsException;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -42,7 +43,9 @@ public class Archive {
 			for(int i=0; i<fileIDs.size();i++)
 				try {
 					a.put(new JSONObject(getCityArchive(fileIDs.get(i), period)));
-				} catch (Exception e) {e.printStackTrace();}
+				} catch(IllegalArgumentException e){e.printStackTrace();}
+				  catch/JSONException e){e.printStackTrace();}
+			    	  catch (IndexOutOfBoundExceptionException e) {e.printStackTrace();}
 			return  a.toList();
 	}
 
@@ -86,7 +89,7 @@ public class Archive {
 	 * al periodo richiesto 
 	 * 
 	 */
-	private String getCityArchive (String fileID,int period) {
+	private String getCityArchive (String fileID,int period)throws IllegalArgumentException {
 		String json=getFileContent(path+fileID+".txt");
 		JSONObject o= new JSONObject(json);	
 		JSONArray jarr=o.getJSONArray("data");
@@ -96,6 +99,7 @@ public class Archive {
 			o.remove("data");
 			o.put("data", jarr);
 		}
+		else throw new IllegalArgumentException();
 		return o.toString();
 	}
 	
