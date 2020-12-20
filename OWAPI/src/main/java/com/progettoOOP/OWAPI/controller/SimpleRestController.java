@@ -21,7 +21,7 @@ import com.progettoOOP.OWAPI.service.WeatherServiceImp;
 
 
 /**
- *@Author Luigi Smargiassi 
+ *@author Luigi Smargiassi 
  * 
  * controller dell'applicazione: sono definite in esso i Path richiamabili dall'utente per usufruire delle 
  * diverse funzionalità
@@ -51,9 +51,14 @@ public class SimpleRestController {
 	}
 	
 	
-/* *
+/**
  *il seguente Path prende come parametri le coordinate della città (lat,lon) e il numero di ulteriori città 
  * da analizzare e richiama le funzionalità atte a fornire le informazioni attuali riguardo nuvolosità e pressione
+ * @param lat 
+ * @param lon
+ * @param cnt
+ * 
+ * @return informazioni attuali
  */
 	@RequestMapping(value = "/actual", method = RequestMethod.GET)
 	public ArrayList<AbstractCityData> actualWeather(@RequestParam(name="lat",defaultValue="42.12")double lat,
@@ -67,7 +72,12 @@ public class SimpleRestController {
 * Il seguente Path prende come corpo della richiesta un oggetto della classe RequestBodyClass sel package model,
 * i cui attributi sono le coordinate della città scelta (lat,lon) e l'eventuale numero di ulteriori città da 
 * analizzare (cnt), il tipo di parametro (type) e il numero di giorni sul quale eseguire le statistiche (period).
-*Richiama le funzionalità di calcollo di media e varianza del type scelto
+* Richiama le funzionalità di calcollo di media e varianza del type scelto
+*  
+*  @param type
+*  @param period
+* 
+*  @return statistiche filtrate 
 */
 	@PostMapping("/stats/{type}/{period}")
 	public List<AbstractCityData> statsWeather(@PathVariable(name="type",required=true)String type,
@@ -78,10 +88,17 @@ public class SimpleRestController {
 	
 	
 	
-/* il seguente Path prende come parametri le coordinate della città scelta (lat,lon), l'eventuale 
+/** il seguente Path prende come parametri le coordinate della città scelta (lat,lon), l'eventuale 
  * numero di ulteriori città (cnt) e il numero di giorni da selezionare nell'archivio (period). 
  * Mostra all'utente i valori di nuvolosità e pressione per il numero di giornate selezionate per ciascuna delle
  * "cnt" città
+ * 
+ * @param period
+ * @param lat 
+ * @param lon
+ * @param cnt
+ * 
+ * @return porzioni di archivio
  */
 	@GetMapping("/archive/{period}")
 	public List<Object> putArchive(@PathVariable(name="period",required=true) int period,
@@ -90,4 +107,16 @@ public class SimpleRestController {
 							 @RequestParam(name="cnt",defaultValue="1")int cnt) {
 		return archive.archiveCall(lat, lon, cnt, period);
 	}
+	
+	
+/** Il seguente Path restituisce all'utente la lista delle città monitorate, al fine di generare statistiche, 
+ * dall'applicazione
+ */
+	@GetMapping("/monitored")
+	public ArrayList<String> getMonitoredCities() {
+		
+		return archive.cityListCall();
+		
+	}
+	
 }
