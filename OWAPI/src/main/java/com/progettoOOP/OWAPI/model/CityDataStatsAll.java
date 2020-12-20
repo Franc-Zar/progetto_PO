@@ -1,9 +1,18 @@
 package com.progettoOOP.OWAPI.model;
 
 
-/** @Author Francesco Zaritto
+/** @author Francesco Zaritto
  * Classe public che rappresenta il tipo di dato contenente le statistiche complete, cioè riguardanti media e
  * varianza sia di pressione che di temperatura
+ * 
+ * costruttore:
+ * @param lat
+ * @param lon
+ * @param name
+ * @param cloudAverage
+ * @param cloudVariance
+ * @param pressureAverage
+ * @param pressureVariance
  */
 public class CityDataStatsAll extends AbstractCityData {
 	
@@ -51,16 +60,4 @@ public class CityDataStatsAll extends AbstractCityData {
 	public void setPressureVariance(double pressureVariance) {
 		this.pressureVariance = pressureVariance;
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-
 }
