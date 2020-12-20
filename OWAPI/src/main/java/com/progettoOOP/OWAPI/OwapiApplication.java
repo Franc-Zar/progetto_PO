@@ -20,7 +20,11 @@ import org.slf4j.LoggerFactory;
 import java.util.ArrayList;
 
 
-
+/**
+ * 
+ * @author Francesco Zaritto
+ *
+ */
 @SpringBootApplication
 public class OwapiApplication {
      
@@ -70,8 +74,9 @@ private static final ArrayList<String> fileIDs = new ArrayList<String> () {
 
 /** metodo void che esegue ogni due ore l'update dell'archivio dati storici delle città
  * 	
+ * @throws IndexOufOfBoundException
  */
-@Scheduled(cron = "0 0 */2 * * ?")	
+@Scheduled(cron = "0 0 */2 * * ?")
 void updateArchive() {
 	
 	
@@ -113,7 +118,6 @@ void updateArchive() {
 			
 
 	} LOGGER.info("Archive updated successfully");
-	
 		
 }
 
@@ -122,8 +126,6 @@ void updateArchive() {
 @EnableScheduling
 @ConditionalOnProperty(name = "scheduling.enabled", matchIfMissing = true)
 class SchedulingConfiguration {}
-
-
 
 
 }
