@@ -12,11 +12,20 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 
+/** @author Francesco Zaritto
+ *
+ * classe di utilities per la lettura
+ *
+ */
 public class FileUtilities {
 	
 	
 	/** metodo public che prende come parametro l'url di una pagina web, apre la connessione e restituisce 
 	 *  il contenuto della pagina sotto formato di Stringa (formattata come JSON) 
+	 *  
+	 *  @param site
+	 *  
+	 *  @return contenuto della pagina web
 	 */
 		public static String getSiteContent(String site) {
 			HttpURLConnection connection = null;
@@ -44,6 +53,10 @@ public class FileUtilities {
 	
 	/** Metodo public che prende come parametro il path di un file (filePath) e restituisce il contenuto del
 	 * file come stringa
+	 * 
+	 * @param filePath
+	 * 
+	 * @return contenuto del file
 	 */
 	public static String getFileContent(String filePath) {
 
@@ -68,6 +81,10 @@ public class FileUtilities {
 	/**
 	 *  Metodo public static che prende come parametri il path del file (filePath) e il nuovo contenuto da 
 	 *  sovrascrivere nel file (newContent)
+	 *  
+	 *  @param filePath
+	 *  @param newContent
+	 *  
 	 */
 	public static void overWrite(String filePath,String newContent) {
 	
