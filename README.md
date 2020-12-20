@@ -7,7 +7,7 @@ Il seguente progetto è relativo all'appello di **programmazione a oggetti di ge
 ## WeatherService
 La nostra applicazione utilizza l'**API** [Current Weather Data](https://openweathermap.org/current#cycle) realizzata da OpenWeather  e manipola i dati ottenuti dalla suddetta per fornire all'utente informazioni riguardanti la **nuvolosità** e la **pressione** della città scelta e, ove specificato, delle città circostanti.
 ### Utilizzo
-L'applicazione viene avviata su **"localhost:8080"** e sfrutta **tre Path**, distinte in funzione dell'operazione richiesta dall'utente:
+L'applicazione viene avviata su **"localhost:8080"** e sfrutta **cinque Path**, distinte in funzione dell'operazione richiesta dall'utente:
 
 * **Keys:**
   * lat = latitudine
@@ -15,16 +15,22 @@ L'applicazione viene avviata su **"localhost:8080"** e sfrutta **tre Path**, dis
   * cnt = numero totale di città da analizzare (compresa quella di cui sono date le coordinate)
   
   <br/> NOTA: se non verranno forniti valori per le keys, l'applicazione ne attribuirà di default
-  <br/> Un breve recap delle funzionalità presenti nell'applicazione è visualizzabile richiamando la path "localhost:8080/"
-
+  
 1)
+Tipo | Path | 
+---- | ---- | 
+GET | localhost:8080/" | 
+
+fornisce all'utente un breve "recap" delle funzionalità consentite dall'applicazione
+
+2)
 Tipo | Path | 
 ---- | ---- | 
 GET | localhost:8080/actual?lat="lat"&lon="lon"&cnt="cnt" |
 
 fornisce all'utente **pressione** e **nuvolosità attuali** relative alla città scelta, cercata tramite coordinate geografiche (gradi decimali), e alle eventuali ulteriori città limitrofe.
 
-2)
+3)
 Tipo | Path | 
 ---- | ---- | 
 POST | localhost:8080/stats/{type}/{period} |
@@ -56,12 +62,21 @@ I parametri di ricerca sono forniti all'applicazione tramite un Request body che
 in tal caso viene inoltre evidenziata la città con la **varianza massima** 
 
 
-3)
+4)
 Tipo | Path | 
 ---- | ---- | 
 GET | localhost:8080/archive?lat="lat"&lon="lon"&cnt="cnt" |
 
 fornisce all'utente lo **storico** dei dati riguardanti la città scelta, cercata tramite coordinate geografiche (gradi decimali), e le eventuali ulteriori città limitrofe.
+
+
+5)
+Tipo | Path | 
+---- | ---- | 
+GET | localhost:8080/monitored |
+
+fornisce all'utente la lista di città attualmente monitorate dall'applicazione, al fine di effettuare le statistiche
+
 
 * I dati restituiti dall'applicazione hanno i seguenti formati: 
   * **informazioni attuali**
