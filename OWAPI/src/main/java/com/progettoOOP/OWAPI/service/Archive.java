@@ -11,8 +11,8 @@ import org.springframework.stereotype.Service;
 import com.progettoOOP.OWAPI.util.FileUtilities;
 
 /**
-@Author Francesco Zaritto
-@Author Luigi Smargiassi
+@author Francesco Zaritto
+@author Luigi Smargiassi
 
 classe per eseguire operazioni di raccolta dati dall'archivio degli storici delle città
 */
@@ -31,6 +31,11 @@ public class Archive {
 	 * numero di città (cnt), periodo di calcolo delle statistiche (period); restituisce una lista contenente
 	 * i file di archivio delle città cercate, filtrati nel contenuto tramite "period", utili al successivo
 	 * calcolo delle statistiche di media e varianza
+	 * 
+	 * @param lat
+         * @param lon
+         * @param cnt
+         * @param period
 	 */
 	public List<Object> archiveCall(double lat, double lon, int cnt, int period) {
 			if(period<1) period = 1;
@@ -44,11 +49,50 @@ public class Archive {
 			return  a.toList();
 	}
 
+	public ArrayList<String> cityListCall() {
+		
+		ArrayList<String> fileIDsToCities = new ArrayList<String>();
+		String thisFileID;
+		String cityListContent;
+		int citiesNumber;
+		String cityArchiveContent;
+		JSONArray searchingIDs;
+		JSONObject searchingNames;
+		
+		cityListContent = FileUtilities.getFileContent("src/main/resources/elencoCitta.txt");
+	    searchingIDs = new JSONArray(cityListContent);
+		
+		for(int i=0; i<searchingIDs.length(); i++) fileIDsToCities.add(searchingIDs.getJSONObject(i).getString("fileID"));
+		
+		citiesNumber = fileIDsToCities.size();
+		
+		for(int i=0; i<citiesNumber;i++) {
+			
+			thisFileID = fileIDsToCities.get(i);
+			
+			cityArchiveContent = FileUtilities.getFileContent("src/main/resources/"+thisFileID+".txt");
+		    
+			searchingNames = new JSONObject(cityArchiveContent);
+			
+			fileIDsToCities.set(i,searchingNames.getString("name"));	
+		}
+		
+		return fileIDsToCities;
+	}
+	
+	
+	
 	
 	/** metodo private che prende come parametri latitudine (lat) e longitudine (lon) della città scelta,
 	 * numero città (cnt); cerca il numero "cnt" di città limitrofe definendo una serie di circonferenze, 
 	 * di centro la città selezionata tramite coordinate, di raggio sempre maggiore e restituisce una 
 	 * ArrayList di stringhe contenente i fileIDs delle città trovate.
+	 * 
+	 * @param lat
+         * @param lon
+         * @param cnt
+         * 
+     * @return fileIDs delle città
 	 */
 	private ArrayList<String> getFileIDs(double lat,double lon,int cnt){
 		String json=FileUtilities.getFileContent(path+nomeFileElenco);
@@ -73,7 +117,7 @@ public class Archive {
 						}
 				}
 			}
-		}catch (JSONException e) {e.printStackTrace();}
+		} catch (JSONException e) {e.printStackTrace();}
 		
 		return cities;
 	}
@@ -82,6 +126,11 @@ public class Archive {
 	/** metodo private che prende come parametri il fileID e il periodo di calcolo delle statistiche (period) 
 	 * e restituisce una stringa contenente la parte dell'archivio della città interessata corrispondente
 	 * al periodo richiesto 
+	 * 
+	 * @param fileID
+	 * @param period
+	 * 
+	 * @return porzione di archivio di dimensioni "period"
 	 * 
 	 */
 	private String getCityArchive (String fileID,int period) {
@@ -97,5 +146,4 @@ public class Archive {
 		return o.toString();
 	}
 	
-
 }
