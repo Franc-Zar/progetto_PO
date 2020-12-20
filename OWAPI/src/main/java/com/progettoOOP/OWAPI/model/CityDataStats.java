@@ -1,22 +1,31 @@
 package com.progettoOOP.OWAPI.model;
 
-/* @Author Francesco Zaritto
+/** @author Francesco Zaritto
  * classe public rappresentante il tipo di dato sul quale vengono salvate le statistiche calcolate per 
  * nuvolosità/pressione riguardo i dati storici di una città (entro un dato periodo). le statistiche sono contenute
- * negli attributi "average" (media) e "variance" (varianza)  
+ * negli attributi "average" (media) e "variance" (varianza) 
+ * 
+ * costruttore:
+ * @param lat
+ * @param lon
+ * @param name
+ * @param variance
+ * @param average
  */
 public class CityDataStats extends AbstractCityData {
 
 	private double average,variance;
 
-	public CityDataStats(double lat, double lon, String name, double param1Average, double param1Variance) {
+	public CityDataStats(double lat, double lon, String name, double average, double variance) {
 		super(lat,lon,name);
-		this.average = param1Average;
-		this.variance = param1Variance;
+		this.average = average;
+		this.variance = variance;
 	}
 
-/* Override del metodo "compareTo" dell'interfaccia Comparable<Object> utilizzato per ordinare in funzione 
+/** Override del metodo "compareTo" dell'interfaccia Comparable<Object> utilizzato per ordinare in funzione 
  * della media (average) la nuvolosità/pressione
+ * 
+ * @param o
  */
 	@Override
 	public int compareTo(Object o) {
