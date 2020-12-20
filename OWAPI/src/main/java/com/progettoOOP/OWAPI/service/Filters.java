@@ -9,14 +9,28 @@ import com.progettoOOP.OWAPI.model.AbstractCityData;
 import com.progettoOOP.OWAPI.model.CityData;
 import com.progettoOOP.OWAPI.model.CityDataStats;
 import com.progettoOOP.OWAPI.model.CityDataStatsAll;
-import com.progettoOOP.OWAPI.model.maxVarianceCity;
+import com.progettoOOP.OWAPI.model.MaxVarianceCity;
 
 
-/** @Author Francesco Zaritto
+/** @author Francesco Zaritto
+ * 
+ * classe di visibilità di default contenete metodi protected statici che eseguono calcolo delle statistiche sui 
+ * dati passati come parametri 
  * 
  */
  class Filters {
 	
+	 
+/** metodo protected static che prende come parametro un JSONArray contenente i dati ottenuti dalla chiamata all'API 
+* (data), un ArrayList (filterdData), il periodo di calcolo statistiche (giorni) e una stringa indicante il tipo di
+* parametro sul quale eseguire le statistiche (param1). Il metodo calcola media e varianza sui dati forniti per il 
+* "param1" scelto
+* 
+* @param data
+* @param filteredData
+* @param period
+* @param param1
+*/
 protected static void calculateStats(JSONArray data, ArrayList<AbstractCityData> filteredData,int period,String param1) {
 		
 		JSONArray stats;
@@ -46,7 +60,14 @@ protected static void calculateStats(JSONArray data, ArrayList<AbstractCityData>
 		}
 		
 		
-	
+/** Overloading di calculateStats: esegue le stesse operazioni con due parametri (param1,param2)
+* 
+* @param data
+* @param filteredData
+* @param period
+* @param param1
+* @param param2
+*/
 protected static void calculateStats(JSONArray data, ArrayList<AbstractCityData> filteredData,int period,String param1,String param2) {
 	
 	JSONArray stats;
@@ -84,10 +105,13 @@ protected static void calculateStats(JSONArray data, ArrayList<AbstractCityData>
 	
 }	
 	
-	/* metodo protected static che prende come parametro un JSONArray contenente i dati ottenuti dalla chiamata all'API 
-	 * (data) e un ArrayList (filterdData). Il metodo popola "filteredData" con le città cercate e i 
-	 * corrispondenti valori di pressione e nuvolosità, filtrati dalla totalità di informazioni fornite dall'API
-	 */
+/** metodo protected static che prende come parametro un JSONArray contenente i dati ottenuti dalla chiamata all'API 
+* (data) e un ArrayList (filterdData). Il metodo popola "filteredData" con le città cercate e i 
+* corrispondenti valori di pressione e nuvolosità, filtrati dalla totalità di informazioni fornite dall'API
+* 
+* @param data
+* @param filteredData 
+*/
 		protected static void filterData(JSONArray data, ArrayList<AbstractCityData> filteredData) {
 			String name;
 			double lon,lat;
@@ -105,9 +129,11 @@ protected static void calculateStats(JSONArray data, ArrayList<AbstractCityData>
 		
 	
 	
- /* metodo private che prende come parametro una ArrayList di dati ordinati rispetto alla media di 
+ /** metodo private che prende come parametro una ArrayList di dati ordinati rispetto alla media di 
   * nuvolosità/pressione e la restituisce dopo aver aggiunto, come ultimo elemento, la città che presenta
   * varianza massima di nuvolosità/pressione
+  * 
+  * @param filteredData
   */
  	protected static void findMaxVariance(ArrayList<AbstractCityData> filteredData) {
  		
@@ -130,7 +156,7 @@ protected static void calculateStats(JSONArray data, ArrayList<AbstractCityData>
  			            	     lon = ((CityDataStats) filteredData.get(i)).getLon();
  			          } }
  	
- 		filteredData.add(new maxVarianceCity(lat,lon,name,maxVariance));
+ 		filteredData.add(new MaxVarianceCity(lat,lon,name,maxVariance));
  		
  		}           	                          
  			
