@@ -7,7 +7,7 @@ Il seguente progetto è relativo all'appello di **programmazione a oggetti di ge
 ## WeatherService
 La nostra applicazione utilizza l'**API** [Current Weather Data](https://openweathermap.org/current#cycle) realizzata da OpenWeather  e manipola i dati ottenuti dalla suddetta per fornire all'utente informazioni riguardanti la **nuvolosità** e la **pressione** della città scelta e, ove specificato, delle città circostanti.
 ### Utilizzo
-L'applicazione viene avviata su **"localhost:8080"** e sfrutta **cinque Path**, distinte in funzione dell'operazione richiesta dall'utente:
+L'applicazione viene avviata su **"localhost:8080"** e sfrutta **sei Path**, distinte in funzione dell'operazione richiesta dall'utente:
 
 * **Keys:**
   * lat = latitudine
@@ -21,7 +21,7 @@ Tipo | Path |
 ---- | ---- | 
 GET | localhost:8080/" | 
 
-fornisce all'utente un breve "recap" delle funzionalità consentite dall'applicazione
+fornisce all'utente un breve "recap" delle funzionalità consentite dall'applicazione.
 
 2)
 Tipo | Path | 
@@ -42,7 +42,7 @@ POST | localhost:8080/stats/{type}/{period} |
     
 relative alla città scelta, cercata tramite coordinate geografiche (gradi decimali), e alle eventuali ulteriori città limitrofe. <br/>
 
-I parametri di ricerca sono forniti all'applicazione tramite un Request body che ha il seguente formato:
+I parametri di ricerca sono forniti all'applicazione tramite un **Request body** che ha il seguente formato:
 
 <br/> ![2020-12-16 (21)](https://user-images.githubusercontent.com/75085155/102383825-447f3e00-3fcc-11eb-9251-c7cc9127e6e4.png)
 
@@ -75,10 +75,23 @@ Tipo | Path |
 ---- | ---- | 
 GET | localhost:8080/monitored |
 
-fornisce all'utente la lista di città attualmente monitorate dall'applicazione, al fine di effettuare le statistiche
+fornisce all'utente la lista di città attualmente monitorate dall'applicazione, al fine di effettuare le statistiche.
 
 
-* I dati restituiti dall'applicazione hanno i seguenti formati: 
+6)
+Tipo | Path | 
+---- | ---- | 
+POST | localhost:8080/setmonitor" | 
+
+permette all'utente di aggiungere una città di sua scelta nell'elenco di monitoraggio. 
+L'applicazione verificherà che tale città corrisponda ai parametri passati, sia già monitorata e, in caso positivo, inizializzerà un archivio dello storico corrispondente, il cui primo dato rappresenta la situazione di **nuvolosità** e **pressione** attuali al momento di tale chiamata; 
+l'utente, inoltre, verrà avvisato dell'esito positivo della sua richiesta o, in caso contrario, verranno indicati i motivi del fallimento della suddetta. <br/>
+
+I parametri di ricerca sono forniti all'applicazione tramite un **Request body** che ha il seguente formato:
+<br/> 
+
+
+* I dati restituiti dall'applicazione, per le varie richieste, hanno i seguenti formati: 
   * **informazioni attuali**
 <br/> ![2020-12-15 (2)](https://user-images.githubusercontent.com/75085155/102226559-cf870800-3ee8-11eb-9c5a-c2112578e329.png) 
   * **media e varianza pressione**
