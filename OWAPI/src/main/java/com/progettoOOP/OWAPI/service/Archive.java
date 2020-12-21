@@ -105,7 +105,7 @@ public class Archive {
 		
 		else newData = FileUtilities.getSiteContent("http://localhost:8080/actual?lat="+lat+"&lon="+lon+"&cnt=1");
 			
-		if(cityExists(lat, lon, name, newData) == true) {
+		if(cityExists(lat, lon, name, newData)) {
 			
 			String oldElenco = FileUtilities.getFileContent(path+nomeFileElenco);
 	
