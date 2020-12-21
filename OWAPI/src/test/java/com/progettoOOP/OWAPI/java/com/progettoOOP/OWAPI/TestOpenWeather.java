@@ -1,4 +1,4 @@
-package com.progettoOOP.OWAPI;
+package com.progettoOOP.OWAPI.Tests;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -65,13 +65,13 @@ class TestOpenWeather {
 		assertNotNull(a);
 		assertEquals(a.size(),3);
 		
-		a=OpenWeather.APIcall(42.12, 14.71, 2, 3, "cloud");
+		a=OpenWeather.APIcall(42.12, 14.71, 2, 2, "cloud");
 		assertNotNull(a);
-		assertEquals(a.size(),4);
+		assertEquals(a.size(),3);
 		
-		a=OpenWeather.APIcall(42.12, 14.71, 2, 3, "all");
+		a=OpenWeather.APIcall(42.12, 14.71, 2, 2, "all");
 		assertNotNull(a);
-		assertEquals(a.size(),3);	
+		assertEquals(a.size(),2);	
 	}
 	
 
@@ -113,3 +113,4 @@ class TestOpenWeather {
 	}
 
 }
+
