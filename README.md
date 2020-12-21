@@ -109,7 +109,7 @@ I parametri di ricerca sono forniti all'applicazione tramite un **Request body**
   * **mostra città monitorate**
 <br/> ![2020-12-21 (8)](https://user-images.githubusercontent.com/75085155/102773653-e8306b80-4389-11eb-84c7-46968b696107.png)
   
-  * **esiti vari riguardo la richiesta di monitoraggio** 
+  * **esiti vari riguardo la richiesta di monitoraggio:** 
 <br/> ![2020-12-21 (4)](https://user-images.githubusercontent.com/75085155/102773137-047fd880-4389-11eb-996d-ecc37ed68a6b.png)
 <br/> ![2020-12-21 (5)](https://user-images.githubusercontent.com/75085155/102773257-3c871b80-4389-11eb-82e6-b1e5fa1a804a.png)
 <br/> ![2020-12-21 (7)](https://user-images.githubusercontent.com/75085155/102773440-83751100-4389-11eb-9901-44a397ea3517.png)
