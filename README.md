@@ -106,7 +106,7 @@ I parametri di ricerca sono forniti all'applicazione tramite un **Request body**
   * **informazioni dallo storico (es. period = 3)** 
 <br/> ![2020-12-15 (10)](https://user-images.githubusercontent.com/75085155/102271588-e432c280-3f1f-11eb-8430-5d9aef011ef1.png)
  
- * **mostra città monitorate**
+  * **mostra città monitorate**
 <br/> ![2020-12-21 (8)](https://user-images.githubusercontent.com/75085155/102773653-e8306b80-4389-11eb-84c7-46968b696107.png)
   
   * **esiti vari riguardo la richiesta di monitoraggio** 
