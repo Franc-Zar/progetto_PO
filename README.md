@@ -91,7 +91,8 @@ l'utente, inoltre, verrà avvisato dell'esito positivo della sua richiesta o, in
 I parametri di ricerca sono forniti all'applicazione tramite un **Request body** che ha il seguente formato:
 <br/> ![2020-12-21 (3)](https://user-images.githubusercontent.com/75085155/102772824-799ede00-4388-11eb-87d8-2f19cecab088.png)
 
-7) Tipo | Path | 
+7)
+Tipo | Path | 
 ---- | ---- | 
 POST | localhost:8080/removemonitor" | 
 
