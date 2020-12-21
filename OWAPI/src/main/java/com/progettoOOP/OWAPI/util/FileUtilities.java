@@ -46,7 +46,7 @@ public class FileUtilities {
 				while((line=reader.readLine())!=null)
 					json+=line;
 				reader.close();
-			} catch (IOException e) {System.out.println("ERROR: I/O error while reading file");}
+			} catch (IOException e) {e.printStackTrace();}
 			return json;
 		}
 	
@@ -70,9 +70,9 @@ public class FileUtilities {
 				String line="";
 				while((line=reader.readLine())!=null) content+=line;
 	
-			} catch(IOException e) {System.out.println("ERROR: I/O error while reading file");}
+			} catch(IOException e) {e.printStackTrace();;}
 			
-		} catch(FileNotFoundException e) {System.out.println("ERROR: file not found");}
+		} catch(FileNotFoundException e) {e.printStackTrace();}
 		
 		return content;
 
