@@ -112,8 +112,7 @@ void updateArchive() {
 	       
 	       try {
 	       newArchive = newArchive.substring(0,newArchive.length()-2) + actualInfo; 
-	       } catch(IndexOutOfBoundsException e) {System.out.println("ERROR: Archive's insufficient length");
-	       }
+	       } catch(IndexOutOfBoundsException e) {e.printStackTrace();}
 		      FileUtilities.overWrite("src/main/resources/" + thisFileID + ".txt", newArchive);
 			
 
