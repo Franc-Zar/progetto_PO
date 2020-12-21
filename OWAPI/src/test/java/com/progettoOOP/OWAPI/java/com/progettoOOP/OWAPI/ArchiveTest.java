@@ -37,6 +37,5 @@ class ArchiveTest {
 	void archiveTest2() {
 		assertEquals("[]",(Object)a.archiveCall(100.00, 14.71, 1, 1).toString(),"lat out of bounds");
 		assertEquals("[]",(Object)a.archiveCall(42.12, 100.00, 1, 1).toString(),"lon out of bounds");
-		assertEquals("[]",(Object)a.archiveCall(42.12, 14.71, 1, 1000).toString(),"period out of bounds");
 	}
 }
