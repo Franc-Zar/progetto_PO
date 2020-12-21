@@ -75,7 +75,7 @@ Tipo | Path |
 ---- | ---- | 
 GET | localhost:8080/monitored |
 
-fornisce all'utente la lista di città attualmente monitorate dall'applicazione, al fine di effettuare le statistiche.
+fornisce all'utente la lista di città attualmente monitorate dall'applicazione, al fine di effettuare le statistiche (l'applicazione monitora cinque città di default).
 
 
 6)
@@ -83,7 +83,7 @@ Tipo | Path |
 ---- | ---- | 
 POST | localhost:8080/setmonitor" | 
 
-permette all'utente di aggiungere una città di sua scelta nell'elenco di monitoraggio (l'applicazione monitora cinque città di default).
+permette all'utente di aggiungere una città di sua scelta nell'elenco di monitoraggio.
 
 L'applicazione verificherà che tale città corrisponda ai parametri passati, sia già monitorata e, in caso positivo, inizializzerà un archivio dello storico corrispondente, il cui primo dato rappresenta la situazione di **nuvolosità** e **pressione** attuali al momento di tale chiamata; 
 l'utente, inoltre, verrà avvisato dell'esito positivo della sua richiesta o, in caso contrario, verranno indicati i motivi del fallimento della suddetta. <br/>
@@ -96,7 +96,7 @@ Tipo | Path |
 ---- | ---- | 
 POST | localhost:8080/removemonitor" | 
 
-permette all'utente di rimuovere una città di sua scelta nell'elenco di monitoraggio (l'applicazione monitora cinque città di default).
+permette all'utente di rimuovere una città di sua scelta nell'elenco di monitoraggio.
 
 L'applicazione verificherà che tale città corrisponda ai parametri passati, sia effettivamente monitorata e, in caso positivo, eliminerà il corrispondente archivio dello storico. 
 L'utente, inoltre, verrà avvisato dell'esito positivo della sua richiesta o, in caso contrario, verranno indicati i motivi del fallimento della suddetta. <br/>
