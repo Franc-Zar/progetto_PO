@@ -16,10 +16,10 @@ import com.progettoOOP.OWAPI.model.RequestMonitoringClass;
 import com.progettoOOP.OWAPI.util.FileUtilities;
 
 /**
-@author Francesco Zaritto
-@author Luigi Smargiassi
-
-classe per eseguire operazioni di raccolta dati dall'archivio degli storici delle città
+*  classe per eseguire operazioni di raccolta dati dall'archivio degli storici delle città
+*  
+*   @author Francesco Zaritto
+*   @author Luigi Smargiassi
 */
 @Service
 public class Archive {
@@ -32,15 +32,17 @@ public class Archive {
 	
 	
 	
-	/** metodo public che prende come parametri latitudine (lat) e longitudine (lon) della città scelta, 
-	 * numero di città (cnt), periodo di calcolo delle statistiche (period); restituisce una lista contenente
-	 * i file di archivio delle città cercate, filtrati nel contenuto tramite "period", utili al successivo
-	 * calcolo delle statistiche di media e varianza
-	 * 
-	 * @param lat
-         * @param lon
-         * @param cnt
-         * @param period
+     /** metodo public che prende come parametri latitudine (lat) e longitudine (lon) della città scelta, 
+     * numero di città (cnt), periodo di calcolo delle statistiche (period); restituisce una lista contenente
+     * i file di archivio delle città cercate, filtrati nel contenuto tramite "period", utili al successivo
+     * calcolo delle statistiche di media e varianza
+     * 
+     * @param lat
+     * @param lon
+     * @param cnt
+     * @param period
+     * 
+     * @return informazioni di archivio
 	 */
 	public List<Object> archiveCall(double lat, double lon, int cnt, int period) {
 			if(period<1) period = 1;
@@ -54,6 +56,13 @@ public class Archive {
 			return  a.toList();
 	}
 
+	
+	
+	/** metodo public che restituisce all'utente i nomi delle città monitorate dall'applicazione (al momento della
+	 * richiesta)
+	 * 
+	 * @return lista di città monitorate
+	 */
 	public ArrayList<String> cityListCall() {
 		
 		ArrayList<String> fileIDsToCities = new ArrayList<String>();
@@ -94,53 +103,118 @@ public class Archive {
 	 * @param lon
 	 * @param name
 	 * 
-	 * @return oggetto RequestMonitoringClass contenente nel campo "response" informazioni riguardanti l'esito dell'operazione richiesta dall' utente
+	 * @return oggetto RequestMonitoringClass contenente nel campo "response" informazioni riguardanti l'esito 
+	 * dell'operazione richiesta dall'utente di monitorare la città scelta
 	 */
 	public RequestMonitoringClass addNewCity(double lat, double lon, String name) {
 	
-		String newData;
+		JSONArray newData;
 		
 		if(lon<-180.0||lon>180.0 || lat<-90.0||lat>90.0) 
 			 return new RequestMonitoringClass(lat, lon, name, "some error occurred: invalid coordinates");
 		
-		else newData = FileUtilities.getSiteContent("http://localhost:8080/actual?lat="+lat+"&lon="+lon+"&cnt=1");
+		else newData = new JSONArray(FileUtilities.getSiteContent("http://localhost:8080/actual?lat="+lat+"&lon="+lon+"&cnt=1"));
 			
 		if(cityExists(lat, lon, name, newData)) {
 			
-			String oldElenco = FileUtilities.getFileContent(path+nomeFileElenco);
+			JSONObject newCity = new JSONObject();
+
+			JSONArray newElenco = new JSONArray(FileUtilities.getFileContent(path+nomeFileElenco));
 	
-		                     if(!monitored(lat, lon, oldElenco)) {
+		  if(!monitored(lat, lon, newElenco)) {
 			
-			String newFileID = setNewArchiveName(oldElenco);
-			String newCity = ",{\"lon\":"+ lon + ",\"lat\":" + lat + ",\"fileID\":" + "\""+ newFileID + "\"" + "}]";
-			String newElenco;
-			boolean response = true;
+			String newFileID = setNewArchiveName(newElenco);
+		
+			newCity.put("lon", lon);
+			newCity.put("lat", lat);
+			newCity.put("fileID", newFileID);
 			
-			newElenco = oldElenco.substring(0,oldElenco.length()-1) + newCity;
-	      
-			FileUtilities.overWrite(path + nomeFileElenco, newElenco);
-			
-			File newCityArchive = new File(path+ newFileID + ".txt");
+			newElenco.put(newCity);	
 				
-			try {
-					response = newCityArchive.createNewFile();
+			File newCityArchive = new File(path + newFileID + ".txt");
+				
+				try {
+					if(newCityArchive.createNewFile()) { 
+						
+					FileUtilities.overWrite(path + nomeFileElenco, newElenco.toString());
+						
+                   FileUtilities.overWrite(newCityArchive.getPath(), getFirstData(lat,lon,name,newData).toString());
+
+return new RequestMonitoringClass(lat, lon, name, "started monitoring this city");
+
+} else return new RequestMonitoringClass(lat, lon, name, "some error occurred: failed to create Archive, city is not monitored");
+				
 				} catch (IOException e) {e.printStackTrace();}
 				
-				if(response==true) {
-			
-			FileUtilities.overWrite(newCityArchive.getPath(), getFirstData(lat, lon, name, newData));
-		
-			return new RequestMonitoringClass(lat, lon, name, "started monitoring this city");
-		
-		} else return new RequestMonitoringClass(lat, lon, name, "some error occurred: archive for this city not created");
 		
 		                 } else return new RequestMonitoringClass(lat, lon, name, "some error occurred: city already monitored");
 		
-		                       } else return new RequestMonitoringClass(lat, lon, name, "some error occurred: this city doesn't exist");
+		 } else return new RequestMonitoringClass(lat, lon, name, "some error occurred: this city doesn't exist");
+		
+		return new RequestMonitoringClass(lat, lon, name, "some error occurred");
+	} 
 	     
+	
+	
+	
+	
+	/** metodo public che prende come parametri latitudine (lat), longitudine (lon) e nome (name) della città. 
+	 * Effettua verifiche sull'idoneitàdella città richiesta, segnalando all'utente eventuali problemi o il 
+	 * successo dell'operazione richiesta di interrompere il monitoraggio della città scelta
+	 * 
+	 * @param lat
+	 * @param lon
+	 * @param name
+	 * 
+	 * @return oggetto RequestMonitoringClass contenente nel campo "response" informazioni riguardanti 
+	 * l'esito dell'operazione richiesta dall'utente di interrompere il monitoraggio della città scelta
+	 */
+		public RequestMonitoringClass removeCity(double lat, double lon, String name) {
 		
+		JSONArray newData;
 		
-	}
+		if(lon<-180.0||lon>180.0 || lat<-90.0||lat>90.0) 
+			 return new RequestMonitoringClass(lat, lon, name, "some error occurred: invalid coordinates");
+		else  newData = new JSONArray(FileUtilities.getSiteContent("http://localhost:8080/actual?lat="+lat+"&lon="+lon+"&cnt=1")); 
+		
+		if(cityExists(lat, lon, name, newData)) {
+		
+		String deleteFileID="empty";
+		String newElenco;
+		String oldElenco = FileUtilities.getFileContent(path+nomeFileElenco);
+		JSONArray searchCity = new JSONArray(oldElenco);
+		JSONObject thisCity;
+		
+		for(int i=0; i<searchCity.length();i++) {
+			
+	 	thisCity = searchCity.getJSONObject(i);
+	 	
+	 if(lat == thisCity.getDouble("lat") && lon == thisCity.getDouble("lon")) { 
+	              
+		   deleteFileID = thisCity.getString("fileID");
+	                               
+		    searchCity.remove(i); } }	 
+		
+  if(deleteFileID.equals("empty")) return new RequestMonitoringClass(lat, lon, name, "some error occurred: this city is not monitored");
+	   
+	else {
+	
+		newElenco = searchCity.toString();
+	
+    FileUtilities.overWrite(path+nomeFileElenco, newElenco);
+    
+	
+    	File thisCityArchive = new File(path+deleteFileID+".txt");
+    	
+    if(thisCityArchive.delete()) return new RequestMonitoringClass(lat, lon, name, "stopped monitoring this city");
+    
+	 return new RequestMonitoringClass(lat, lon, name, "some error occurred: stopped monitoring this city, but failed to delete this city Archive");
+	
+	  }
+		
+    } else  return new RequestMonitoringClass(lat, lon, name, "some error occurred: this city doesn't exist");
+  
+ }
 	
 	/** metodo private che prende come parametri latitudine (lat) e longitudine (lon) della città scelta,
 	 * numero città (cnt); cerca il numero "cnt" di città limitrofe definendo una serie di circonferenze, 
@@ -151,7 +225,7 @@ public class Archive {
          * @param lon
          * @param cnt
          * 
-     * @return fileIDs delle città
+         * @return fileIDs delle città
 	 */
 	private ArrayList<String> getFileIDs(double lat,double lon,int cnt){
 		String json=FileUtilities.getFileContent(path+nomeFileElenco);
@@ -207,7 +281,7 @@ public class Archive {
 	
 	
 	
-	/** metodo private che prende come parametri latitudine (lat), longitudine (lon) e nome (name) della città, una stringa contenente i dati
+	/** metodo private che prende come parametri latitudine (lat), longitudine (lon) e nome (name) della città, un JSONArray contenente i dati
 	 * attuali (data). Il metodo restituisce "true" se le coordinate fornite corrispondono alla città il cui nome corrisponde a quello fornito
 	 * come parametro (name); "false" altrimenti. 
 	 *  
@@ -218,9 +292,7 @@ public class Archive {
 	 * 
 	 * @return boolean 
 	 */
-	private boolean cityExists (double lat, double lon, String name, String data) {
-	
-		JSONArray analize = new JSONArray(data);
+	private boolean cityExists (double lat, double lon, String name, JSONArray analize) {
 		
 		if(name.equals(analize.getJSONObject(0).getString("name"))) return true;
 		else return false;
@@ -228,7 +300,7 @@ public class Archive {
 	}
 	
 	
-	/** metodo private che prende come parametri latitudine (lat), longitudine (lon) e una stringa contenente i dati attuali (data).
+	/** metodo private che prende come parametri latitudine (lat), longitudine (lon) e un JSONArray contenente i dati attuali (data).
 	 * Il metodo restituisce "true" se la richiesta dell'utente è effettuata per una città già monitorata;
 	 * "false" altrimenti.
 	 * 
@@ -238,13 +310,14 @@ public class Archive {
 	 * 
 	 * @return boolean
 	 */
-	private boolean monitored (double lat, double lon, String data) {
+	private boolean monitored (double lat, double lon, JSONArray analize) {
 		
-	JSONArray analize = new JSONArray(data);
 	BigDecimal gaveLon = new BigDecimal(lon).setScale(2,RoundingMode.HALF_UP);
 	BigDecimal gaveLat = new BigDecimal(lat).setScale(2,RoundingMode.HALF_UP);
 	BigDecimal thisLon;
 	BigDecimal thisLat;
+	
+	if(analize.isEmpty()) return false;
 	
 	for(int i=0; i<analize.length();i++) {
 		
@@ -259,7 +332,7 @@ public class Archive {
 	}
 	
 	
-	/** metodo private che prende come parametri latitudine (lat), longitudine (lon) e nome (name) della città, una stringa contenente i dati
+	/** metodo private che prende come parametri latitudine (lat), longitudine (lon) e nome (name) della città, un JSONArray contenente i dati
 	 *  attuali (data). Restituisce una Stringa contenente info attuali da inserire nell'archivio appena creato della nuova città aggiunta 
 	 *  all'elenco delle monitorate 
 	 * 
@@ -268,36 +341,48 @@ public class Archive {
 	 * @param name
 	 * @param data
 	 * 
-	 * @return stringa rappresentante un JSONObject contenente info attuali al momento della richiesta dell'utente per la città da monitorare
+	 * @return  JSONObject contenente info attuali al momento della richiesta dell'utente per la città da monitorare
 	 */
-	private String getFirstData (double lat, double lon, String name, String data) {
+	private JSONObject getFirstData (double lat, double lon, String name, JSONArray newData) {
 		
+		JSONObject obj = new JSONObject();
+		JSONArray firstData;
+		String data;
 		
-		JSONArray takeActual = new JSONArray(data);
+		double cloud = newData.getJSONObject(0).getDouble("cloud");
+		double pressure = newData.getJSONObject(0).getDouble("pressure");
 		
-		double clouds = takeActual.getJSONObject(0).getDouble("cloud");
-		double pressure = takeActual.getJSONObject(0).getDouble("pressure");
+		data = "[{\"cloud\":" + cloud + ",\"pressure\":" + pressure + "}]";
 		
-		return "{\"name\":"+"\""+ name + "\"" +", \"lon\":" + lon 
+		firstData = new JSONArray(data);
 		
-		+ ", \"lat\":" + lat +", \"data\": [{\"cloud\":" + clouds + ", \"pressure\":" + pressure + "}]}";
-	
+		obj.put("name",name);
+		obj.put("lon", lon);
+		obj.put("lat", lat);
+		obj.put("data", firstData);
+		
+		return obj;
+		
 	}
 	
-	/** metodo private che restituisce una stringa contenente il nome dell'archivio che verrà creato per ospitare i dati storici della città
+	/** metodo private che prende come parametro un JSONArray contenente l'elenco delle città monitorate e restituisce 
+	 * una stringa contenente il nome dell'archivio che verrà creato per ospitare i dati storici della città
 	 * appena inserita nell'elenco delle monitorate
 	 * 
 	 * @param data
 	 * @return nome del file di archivio
 	 */
-	private String setNewArchiveName(String data) {
+	private String setNewArchiveName(JSONArray data) {
 		
-		JSONArray jarr = new JSONArray(data);
 		
-			Integer newFileID = Integer.parseInt(jarr.getJSONObject(jarr.length()-1).getString("fileID"));
-		  
-			return (++newFileID).toString();
-				
+		Integer newFileID;
+		
+		if(!data.isEmpty()) {
+			 newFileID = Integer.parseInt(data.getJSONObject(data.length()-1).getString("fileID"));
+		  return (++newFileID).toString();
+		
+		} else return "1";
+		
 	}
 	
 	
