@@ -101,10 +101,9 @@ public class Archive {
 		String newData;
 		
 		if(lon<-180.0||lon>180.0 || lat<-90.0||lat>90.0) 
+			 return new RequestMonitoringClass(lat, lon, name, "some error occurred: invalid coordinates");
 		
-		newData = FileUtilities.getSiteContent("http://localhost:8080/actual?lat="+lat+"&lon="+lon+"&cnt=1");
-		
-		else return new RequestMonitoringClass(lat, lon, name, "some error occurred: invalid coordinates");
+		else newData = FileUtilities.getSiteContent("http://localhost:8080/actual?lat="+lat+"&lon="+lon+"&cnt=1");
 			
 		if(cityExists(lat, lon, name, newData) == true) {
 			
