@@ -21,11 +21,11 @@ import com.progettoOOP.OWAPI.service.WeatherServiceImp;
 
 
 
-/**
- *@author Luigi Smargiassi 
- * 
- * controller dell'applicazione: sono definite in esso i Path richiamabili dall'utente per usufruire delle 
+/**controller dell'applicazione: sono definite in esso i Path richiamabili dall'utente per usufruire delle 
  * diverse funzionalità
+ * 
+ * @author Luigi Smargiassi 
+ * @author Francesco Zaritto
  */
 @RestController
 public class SimpleRestController {
@@ -140,5 +140,21 @@ public class SimpleRestController {
 	}
 	
 	
+	/** Il seguente Path prende come corpo della richiesta un oggetto della classe RequestMonitoringClass del package model, i cui attributi
+	 * sono le coordinate (lat,lon) e il nome (name) della città che l'utente desidera rimuovere dal monitoraggio dell'applicazione. 
+	 * Restituisce un oggetto JSON nella cui key "response" è riportato l'esito dell'operazione richiesta e eventuali problematiche.
+	 * 
+	 *  @return oggetto JSON le cui keys associate sono: 
+	 *  "lat"
+	 *  "lon"
+	 *  "name"
+	 *  "response"
+	 *   
+	 */
+	@PostMapping("/removemonitor")
+	public RequestMonitoringClass requestForRemoving(@RequestBody RequestMonitoringClass body) {
+		
+	return archive.removeCity(body.getLat(), body.getLon(), body.getName());	
+	
+	}
 }
-
