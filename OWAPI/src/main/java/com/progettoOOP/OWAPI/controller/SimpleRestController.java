@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.progettoOOP.OWAPI.model.AbstractCityData;
 import com.progettoOOP.OWAPI.model.RequestBodyClass;
+import com.progettoOOP.OWAPI.model.RequestMonitoringClass;
 import com.progettoOOP.OWAPI.service.Archive;
 import com.progettoOOP.OWAPI.service.WeatherServiceImp;
 
@@ -69,7 +70,7 @@ public class SimpleRestController {
 	
 	
 /**
-* Il seguente Path prende come corpo della richiesta un oggetto della classe RequestBodyClass sel package model,
+* Il seguente Path prende come corpo della richiesta un oggetto della classe RequestBodyClass del package model,
 * i cui attributi sono le coordinate della città scelta (lat,lon) e l'eventuale numero di ulteriori città da 
 * analizzare (cnt), il tipo di parametro (type) e il numero di giorni sul quale eseguire le statistiche (period).
 * Richiama le funzionalità di calcollo di media e varianza del type scelto
@@ -109,8 +110,7 @@ public class SimpleRestController {
 	}
 	
 	
-/** Il seguente Path restituisce all'utente la lista delle città monitorate, al fine di generare statistiche, 
- * dall'applicazione
+/** Il seguente Path restituisce all'utente la lista delle città monitorate dall'applicazione, al fine di generare statistiche, 
  */
 	@GetMapping("/monitored")
 	public ArrayList<String> getMonitoredCities() {
@@ -119,4 +119,26 @@ public class SimpleRestController {
 		
 	}
 	
+	
+	
+	/** Il seguente Path prende come corpo della richiesta un oggetto della classe RequestMonitoringClass del package model, i cui attributi
+	 * sono le coordinate (lat,lon) e il nome (name) della città che l'utente desidera venga monitorata dall'applicazione. 
+	 * Restituisce un oggetto JSON nella cui key "response" è riportato l'esito dell'operazione richiesta e eventuali problematiche.
+	 * 
+	 *  @return oggetto JSON le cui keys associate sono: 
+	 *  "lat"
+	 *  "lon"
+	 *  "name"
+	 *  "response"
+	 *   
+	 */
+	@PostMapping("/setmonitor") 
+	public RequestMonitoringClass requestForMonitoring(@RequestBody RequestMonitoringClass body) {
+		
+	return archive.addNewCity(body.getLat(), body.getLon(), body.getName());
+		
+	}
+	
+	
 }
+
