@@ -74,18 +74,16 @@ private static final ArrayList<String> fileIDs = new ArrayList<String> () {
 
 /** metodo void che esegue ogni due ore l'update dell'archivio dati storici delle città
  * 	
- * @throws IndexOufOfBoundException
  */
 @Scheduled(cron = "0 0 */2 * * ?")
 void updateArchive() {
 	
-	
 	JSONArray dataArray;
+	JSONObject newArchive;
 	JSONObject actualData;
 	int cloud,pressure;
 	String thisFileID;
-	String site, actualInfo;
-	String newArchive="";
+	String site;
 	RequestBodyClass singleCity;
 	
 	
@@ -93,27 +91,24 @@ void updateArchive() {
 		
 		 thisFileID = fileIDs.get(i);
 		 singleCity = CityList.get(i);
-		 newArchive ="";
+		 
 	
 		site = "http://localhost:8080/actual?lat="+singleCity.getLat()+"&lon="+singleCity.getLon();
 	   
 		
 		dataArray = new JSONArray(FileUtilities.getSiteContent(site));
 		actualData = dataArray.getJSONObject(0);
-		
-		
-		
+
 	     cloud = actualData.getInt("cloud");
 	     pressure = actualData.getInt("pressure");
 	     
-	     actualInfo = ",{\"cloud\":" + cloud + ", \"pressure\":"+pressure+"}]}";
+	     actualData = new JSONObject("{\"cloud\":" + cloud + ", \"pressure\":"+pressure+"}");
 			 
-	       newArchive = FileUtilities.getFileContent("src/main/resources/" + thisFileID + ".txt");
+	       newArchive = new JSONObject (FileUtilities.getFileContent("src/main/resources/" + thisFileID + ".txt"));
 	       
-	       try {
-	       newArchive = newArchive.substring(0,newArchive.length()-2) + actualInfo; 
-	       } catch(IndexOutOfBoundsException e) {e.printStackTrace();}
-		      FileUtilities.overWrite("src/main/resources/" + thisFileID + ".txt", newArchive);
+	       newArchive.getJSONArray("data").put(actualData);
+	      
+		  FileUtilities.overWrite("src/main/resources/" + thisFileID + ".txt", newArchive.toString() );
 			
 
 	} LOGGER.info("Archive updated successfully");
