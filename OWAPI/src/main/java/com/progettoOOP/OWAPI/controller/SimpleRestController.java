@@ -18,6 +18,7 @@ import com.progettoOOP.OWAPI.model.RequestBodyClass;
 import com.progettoOOP.OWAPI.model.RequestMonitoringClass;
 import com.progettoOOP.OWAPI.service.Archive;
 import com.progettoOOP.OWAPI.service.WeatherServiceImp;
+import com.progettoOOP.OWAPI.util.FileUtilities;
 
 
 
@@ -35,22 +36,16 @@ public class SimpleRestController {
 	@Autowired
 	WeatherServiceImp service;
 	
+	private final String filePath= "src/main/resources/homepage.txt";
+	
 /**
 *il seguente Path restituisce all'utente un breve recap delle funzionalità dell'applicazione a sua 
 * disposizione 
 */
 		@RequestMapping("/")
 	public String home() {
-		return "<!DOCTYPE html>\r\n" + 
-				"<html>\r\n" + 
-				"<body>\r\n" + 
-				"<h1>\t--HOME--</h1>\r\n" + 
-				"<h3>\"\\actual\" con latitudine,longitudine e numero di località da studiare come parametri,per ottenere informazioni riguardo il meteo corrente</h3>\r\n" + 
-				"<h3>\"\\stats\\{type}\\{period}\", come sopra,ma fornendo con period,il numero di giorni da considerare,e con type,il dato fra cloud e pressure che si vuole studiare </h3>\r\n" +
-				"</body>\r\n" + 
-				"</html>";
-	}
-	
+		return FileUtilities.getFileContent(filePath);
+	}	
 	
 /**
  *il seguente Path prende come parametri le coordinate della città (lat,lon) e il numero di ulteriori città 
