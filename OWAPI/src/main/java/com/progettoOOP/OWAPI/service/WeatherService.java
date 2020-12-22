@@ -5,8 +5,9 @@ import java.util.ArrayList;
 import com.progettoOOP.OWAPI.model.AbstractCityData;
 
 
-/** @author Luigi Smargiassi
- * Interfaccia pubblica del servizio meteo 
+/** Interfaccia pubblica del servizio meteo
+ *
+ * @author Luigi Smargiassi
  */
 
 public interface WeatherService {
