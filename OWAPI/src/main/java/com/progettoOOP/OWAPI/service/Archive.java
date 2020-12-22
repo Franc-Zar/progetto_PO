@@ -32,7 +32,6 @@ public class Archive {
 	private final double limite= limiteCerchio/passo;
 	
 	
-	
 	/** metodo public che prende come parametri latitudine (lat) e longitudine (lon) della città scelta, 
 	 * numero di città (cnt), periodo di calcolo delle statistiche (period); restituisce una lista contenente
 	 * i file di archivio delle città cercate, filtrati nel contenuto tramite "period", utili al successivo
@@ -82,13 +81,9 @@ public class Archive {
 		citiesNumber = fileIDsToCities.size();
 		
 		for(int i=0; i<citiesNumber;i++) {
-			
 			thisFileID = fileIDsToCities.get(i);
-			
 			cityArchiveContent = FileUtilities.getFileContent(path+thisFileID+".txt");
-		    
 			searchingNames = new JSONObject(cityArchiveContent);
-			
 			fileIDsToCities.set(i,searchingNames.getString("name"));	
 		}
 		
@@ -108,58 +103,40 @@ public class Archive {
 	 * dell'operazione richiesta dall'utente di monitorare la città scelta
 	 */
 	public RequestMonitoringClass addNewCity(double lat, double lon, String name) {
-	
 		JSONArray newData;
 		
 		if(lon<-180.0||lon>180.0 || lat<-90.0||lat>90.0) 
 			 return new RequestMonitoringClass(lat, lon, name, "some error occurred: invalid coordinates");
-		
 		else newData = new JSONArray(FileUtilities.getSiteContent("http://localhost:8080/actual?lat="+lat+"&lon="+lon+"&cnt=1"));
 			
-	if(cityExists(lat, lon, name, newData)) {
-			
+		if(cityExists(lat, lon, name, newData)) {
 			JSONObject newCity = new JSONObject();
-
 			JSONArray newElenco = new JSONArray(FileUtilities.getFileContent(path+nomeFileElenco));
-	
-		                
-			    if(!monitored(lat, lon, newElenco)) {
-			
-			String newFileID = setNewArchiveName(newElenco);
-		
-			newCity.put("lon", lon);
-			newCity.put("lat", lat);
-			newCity.put("fileID", newFileID);
-			
-			newElenco.put(newCity);	
+			if(!monitored(lat, lon, newElenco)) {
+				String newFileID = setNewArchiveName(newElenco);
 				
-			File newCityArchive = new File(path + newFileID + ".txt");
+				newCity.put("lon", lon);
+				newCity.put("lat", lat);
+				newCity.put("fileID", newFileID);
+				newElenco.put(newCity);	
 				
+				File newCityArchive = new File(path + newFileID + ".txt");
 				try {
-					
-					        if(newCityArchive.createNewFile()) { 
-						
-					FileUtilities.overWrite(path + nomeFileElenco, newElenco.toString());
-						
-                   FileUtilities.overWrite(newCityArchive.getPath(), getFirstData(lat,lon,name,newData).toString());
-
-            return new RequestMonitoringClass(lat, lon, name, "started monitoring this city");
-
-  } else return new RequestMonitoringClass(lat, lon, name, "some error occurred: failed to create Archive, city is not monitored");
-				
+					if(newCityArchive.createNewFile()) { 
+						FileUtilities.overWrite(path + nomeFileElenco, newElenco.toString());
+						FileUtilities.overWrite(newCityArchive.getPath(), getFirstData(lat,lon,name,newData).toString());
+						return new RequestMonitoringClass(lat, lon, name, "started monitoring this city");
+					}
+					else return new RequestMonitoringClass(lat, lon, name, "some error occurred: failed to create Archive, city is not monitored");
 				} catch (IOException e) {e.printStackTrace();}
 				
-		
-		        } else return new RequestMonitoringClass(lat, lon, name, "some error occurred: city already monitored");
-		
-		 } else return new RequestMonitoringClass(lat, lon, name, "some error occurred: this city doesn't exist");
+			} else return new RequestMonitoringClass(lat, lon, name, "some error occurred: city already monitored");
+			
+		} else return new RequestMonitoringClass(lat, lon, name, "some error occurred: this city doesn't exist");
 		
 		return new RequestMonitoringClass(lat, lon, name, "some error occurred");
 	} 
 	     
-	
-	
-	
 	
 	/** metodo public che prende come parametri latitudine (lat), longitudine (lon) e nome (name) della città. 
 	 * Effettua verifiche sull'idoneitàdella città richiesta, segnalando all'utente eventuali problemi o il 
@@ -172,63 +149,45 @@ public class Archive {
 	 * @return oggetto RequestMonitoringClass contenente nel campo "response" informazioni riguardanti 
 	 * l'esito dell'operazione richiesta dall'utente di interrompere il monitoraggio della città scelta
 	 */
-		public RequestMonitoringClass removeCity(double lat, double lon, String name) {
-		
-		JSONArray newData;
-		
+	public RequestMonitoringClass removeCity(double lat, double lon, String name) {
 		if(lon<-180.0||lon>180.0 || lat<-90.0||lat>90.0) 
 			 return new RequestMonitoringClass(lat, lon, name, "some error occurred: invalid coordinates");
-		else  newData = new JSONArray(FileUtilities.getSiteContent("http://localhost:8080/actual?lat="+lat+"&lon="+lon+"&cnt=1")); 
+
+		JSONArray newData = new JSONArray(FileUtilities.getSiteContent("http://localhost:8080/actual?lat="+lat+"&lon="+lon+"&cnt=1")); 
 		
 		if(cityExists(lat, lon, name, newData)) {
+			int indexRemove=-1;
+			String deleteFileID="empty";
+			String newElenco;
+			String oldElenco = FileUtilities.getFileContent(path+nomeFileElenco);
+			JSONArray searchCity = new JSONArray(oldElenco);
+			JSONObject thisCity;
 		
-		int indexRemove=-1;
-		String deleteFileID="empty";
-		String newElenco;
-		String oldElenco = FileUtilities.getFileContent(path+nomeFileElenco);
-		JSONArray searchCity = new JSONArray(oldElenco);
-		JSONObject thisCity;
+			for(int i=0; i<searchCity.length();i++) {
+				thisCity = searchCity.getJSONObject(i);
+			 	
+				if(lat == thisCity.getDouble("lat") && lon == thisCity.getDouble("lon")) {
+					   deleteFileID = thisCity.getString("fileID");                      
+					    indexRemove = i;	   
+				}
+			}	 
 		
-		for(int i=0; i<searchCity.length();i++) {
-			
-	 	thisCity = searchCity.getJSONObject(i);
-	 	
-	 if(lat == thisCity.getDouble("lat") && lon == thisCity.getDouble("lon")) { 
-	              
-		   deleteFileID = thisCity.getString("fileID");
-	                               
-		    indexRemove = i; 
-		   
-	 } 
-	 
-  }	 
-		
-  if(deleteFileID.equals("empty") && indexRemove==-1) 
-	        return new RequestMonitoringClass(lat, lon, name, "some error occurred: this city is not monitored");
-	   
-	else {
-		
-		File thisCityArchive = new File(path+deleteFileID+".txt");
-	     
-		if(thisCityArchive.delete()) { 
-		
-		 searchCity.remove(indexRemove);
-		
-		newElenco = searchCity.toString();
+			if(deleteFileID.equals("empty") && indexRemove==-1) 
+				return new RequestMonitoringClass(lat, lon, name, "some error occurred: this city is not monitored");
+			else {
+				File thisCityArchive = new File(path+deleteFileID+".txt");
+				
+				if(thisCityArchive.delete()) {
+					searchCity.remove(indexRemove);
+					newElenco = searchCity.toString();
+					FileUtilities.overWrite(path+nomeFileElenco, newElenco);
+					return new RequestMonitoringClass(lat, lon, name, "stopped monitoring this city");
+				}
+				else return new RequestMonitoringClass(lat, lon, name, "some error occurred: Archive not deleted, city still monitored");	
+			}
+		} else  return new RequestMonitoringClass(lat, lon, name, "some error occurred: this city doesn't exist");
+	}
 	
-    FileUtilities.overWrite(path+nomeFileElenco, newElenco);
-		
-    return new RequestMonitoringClass(lat, lon, name, "stopped monitoring this city");
-    
-		}
-		
-		else return new RequestMonitoringClass(lat, lon, name, "some error occurred: Archive not deleted, city still monitored");	
-    
-		}
-		
-    } else  return new RequestMonitoringClass(lat, lon, name, "some error occurred: this city doesn't exist");
-  
- }
 	
 	/** metodo private che prende come parametri latitudine (lat) e longitudine (lon) della città scelta,
 	 * numero città (cnt); cerca il numero "cnt" di città limitrofe definendo una serie di circonferenze, 
@@ -386,18 +345,15 @@ public class Archive {
 	 * @param data
 	 * @return nome del file di archivio
 	 */
-	private String setNewArchiveName(JSONArray data) {
-		
-		
+	private String setNewArchiveName(JSONArray data) {		
 		Integer newFileID;
 		
 		if(!data.isEmpty()) {
-			 newFileID = Integer.parseInt(data.getJSONObject(data.length()-1).getString("fileID"));
-		  return (++newFileID).toString();
-		
-		} else return "1";
-		
+			newFileID = Integer.parseInt(data.getJSONObject(data.length()-1).getString("fileID"));
+			return (++newFileID).toString();
+		}
+		else return "1";
 	}
-	
+
 	
 }
