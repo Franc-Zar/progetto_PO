@@ -1,7 +1,6 @@
 package com.progettoOOP.OWAPI.model;
 
-/** @author Francesco Zaritto
- * 
+/** 
  * classe public rappresentante all'utente la città che, dopo il calcolo delle statistiche, presenta la 
  * massima varianza del parametro cloud/pressure
  * 
@@ -10,6 +9,8 @@ package com.progettoOOP.OWAPI.model;
  * @param lon
  * @param name
  * @param maxVariance
+ *
+ * @author Francesco Zaritto
  */
 
 public class MaxVarianceCity extends AbstractCityData{
