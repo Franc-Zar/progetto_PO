@@ -94,7 +94,7 @@ I parametri di ricerca sono forniti all'applicazione tramite un **Request body**
 7)
 Tipo | Path | 
 ---- | ---- | 
-POST | localhost:8080/removemonitor" | 
+POST | localhost:8080/removemonitor | 
 
 permette all'utente di rimuovere una città di sua scelta nell'elenco di monitoraggio.
 
