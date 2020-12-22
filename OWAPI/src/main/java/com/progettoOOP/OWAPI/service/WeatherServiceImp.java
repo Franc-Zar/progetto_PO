@@ -3,10 +3,12 @@ package com.progettoOOP.OWAPI.service;
 import java.util.ArrayList;
 import org.springframework.stereotype.Service;
 import com.progettoOOP.OWAPI.model.AbstractCityData;
+import com.progettoOOP.OWAPI.model.CityData;
 
-/** @author Luigi Smargiassi
+
+/**classe che implementa l'interfaccia public "WeatherService" 
  * 
- * classe che implementa l'interfaccia public "WeatherService" 
+ *@author Luigi Smargiassi
  */
 @Service
 public class WeatherServiceImp implements WeatherService {
@@ -22,13 +24,19 @@ public class WeatherServiceImp implements WeatherService {
  * 
  * @return dati forniti da OpenWeather.APIcall
  */
-	
+	//@Override
 	public ArrayList<AbstractCityData> actualService(double lat, double lon, int cnt) {
+		ArrayList<AbstractCityData> a=new ArrayList<>();
 		try {
-			return OpenWeather.APIcall(lat, lon, 0, cnt, "actual");
-		}catch (IllegalArgumentException e){e.printStackTrace();}
-		
-		return null;
+			a=OpenWeather.APIcall(lat, lon, 0, cnt, "actual");
+			if(a.isEmpty()) a.add(
+					new CityData(0,0,"ERROR:per ulteriori informazioni,controllare la console",0,0)
+					); 
+		}catch (IllegalArgumentException e){
+			e.printStackTrace();
+			a.add(new CityData(0,0,e.getMessage(),0,0));
+			}
+		return a;
 	}
 	
 	
@@ -46,12 +54,19 @@ public class WeatherServiceImp implements WeatherService {
      * 
      * @return dati forniti da OpenWeather.APIcall
 	 */
-	
+	//@Override
 	public ArrayList<AbstractCityData> statService(int period, double lat, double lon, int cnt, String type) {
+		ArrayList<AbstractCityData> a= new ArrayList<>();
 		try {
-			 return OpenWeather.APIcall(lat, lon, period, cnt, type);
-		}catch (IllegalArgumentException e) {e.printStackTrace();}
-		return null;
+			a=OpenWeather.APIcall(lat, lon, period, cnt, type);
+			if(a.isEmpty()) a.add(
+				new CityData(0,0,"ERROR:per ulteriori informazioni,controllare la console",0,0)
+				); 
+		}catch (IllegalArgumentException e){
+				e.printStackTrace();
+				a.add(new CityData(0,0,e.getMessage(),0,0));
+				}
+			return a;
 	}
 
 }
