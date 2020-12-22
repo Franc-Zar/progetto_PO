@@ -14,7 +14,11 @@ L'applicazione viene avviata su **"localhost:8080"** e sfrutta diverse **Path**,
   * lon = longitudine
   * cnt = numero totale di città da analizzare (compresa quella di cui sono date le coordinate)
   
-  <br/> NOTA: se non verranno forniti valori per le keys, l'applicazione ne attribuirà di default
+  <br/> NOTA: se non verranno forniti valori per le keys, l'applicazione ne attribuirà di default,nel caso in cui le keys non rispettino
+  i limiti,ovvero quelli naturali per latitudine e longitudine, e il limite di massimo 50 per il contatore apparirà un messaggio
+  d'errore al posto della canonica lista di oggetti. Questo non sostituisce la console come canale principale per la segnalazione
+  degli errori,ma migliora la raggiungibilità della stessa,come segnala il messaggio che appare nel caso gli errori non dipendano
+  direttamente dalla richiesta fatta dall'utente,ma dall'API OpenWeather stesso o dagli archivi in locale.
   
 1)
 Tipo | Path | 
