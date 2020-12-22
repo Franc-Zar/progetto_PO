@@ -150,7 +150,7 @@ public class Archive {
 				} catch (IOException e) {e.printStackTrace();}
 				
 		
-		                 } else return new RequestMonitoringClass(lat, lon, name, "some error occurred: city already monitored");
+		        } else return new RequestMonitoringClass(lat, lon, name, "some error occurred: city already monitored");
 		
 		 } else return new RequestMonitoringClass(lat, lon, name, "some error occurred: this city doesn't exist");
 		
@@ -198,7 +198,7 @@ public class Archive {
 		   deleteFileID = thisCity.getString("fileID");
 	                               
 		    indexRemove = i; 
-		    
+		   
 	 } 
 	 
   }	 
