@@ -12,10 +12,10 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-/** @author Francesco Zaritto
- *
+/**
  * classe di utilities per la lettura
  *
+ * @author Francesco Zaritto
  */
 public class FileUtilities {
 	
