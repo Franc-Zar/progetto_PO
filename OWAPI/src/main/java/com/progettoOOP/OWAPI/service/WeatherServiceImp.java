@@ -22,7 +22,7 @@ public class WeatherServiceImp implements WeatherService {
  * 
  * @return dati forniti da OpenWeather.APIcall
  */
-	@Override
+	
 	public ArrayList<AbstractCityData> actualService(double lat, double lon, int cnt) {
 		try {
 			return OpenWeather.APIcall(lat, lon, 0, cnt, "actual");
@@ -46,7 +46,7 @@ public class WeatherServiceImp implements WeatherService {
      * 
      * @return dati forniti da OpenWeather.APIcall
 	 */
-	@Override
+	
 	public ArrayList<AbstractCityData> statService(int period, double lat, double lon, int cnt, String type) {
 		try {
 			 return OpenWeather.APIcall(lat, lon, period, cnt, type);
