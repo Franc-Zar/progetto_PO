@@ -1,6 +1,6 @@
 package com.progettoOOP.OWAPI.model;
 
-/** @author Luigi Smargiassi
+/**
  * classe astratta public caratterizzata dagli attributi fondamentali che definiscono ogni città nell'applicazione:
  * nome (name)
  * longitudine (lon)
@@ -10,6 +10,8 @@ package com.progettoOOP.OWAPI.model;
  * @param lat 
  * @param lon
  * @param name
+ *
+ * @author Luigi Smargiassi
  */
 public abstract class AbstractCityData implements Comparable<Object>{
 	
@@ -47,7 +49,6 @@ public abstract class AbstractCityData implements Comparable<Object>{
 		this.name = name;
 	}
 	
-	@Override
 	public int compareTo(Object o) {
 		
 		return 0;
