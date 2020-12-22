@@ -12,11 +12,11 @@ import com.progettoOOP.OWAPI.model.CityDataStatsAll;
 import com.progettoOOP.OWAPI.model.MaxVarianceCity;
 
 
-/** @author Francesco Zaritto
- * 
+/** 
  * classe di visibilità di default contenete metodi protected statici che eseguono calcolo delle statistiche sui 
  * dati passati come parametri 
- * 
+ *
+ * @author Francesco Zaritto
  */
  class Filters {
 	
