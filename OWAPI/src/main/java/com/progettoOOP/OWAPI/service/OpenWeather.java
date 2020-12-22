@@ -39,7 +39,7 @@ public class OpenWeather {
  */
 	public static ArrayList<AbstractCityData> APIcall(double lat,double lon,int period,int cnt,String type) throws IllegalArgumentException{
 
-		if(cnt<1||cnt>20) throw new IllegalArgumentException("ERROR: Invalid cities' number");
+		if(cnt<1||cnt>50) throw new IllegalArgumentException("ERROR: Invalid cities' number");
 		if(lon<-180.0||lon>180.0) throw new IllegalArgumentException("ERROR: Invalid longitude");
 		if(lat<-90.0||lat>90.0) throw new IllegalArgumentException("ERROR: Invalid latitude");
 		
