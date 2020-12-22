@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"All Packages","url":"allpackages-index.html"},{"l":"com.progettoOOP.OWAPI.controller"},{"l":"com.progettoOOP.OWAPI.model"},{"l":"com.progettoOOP.OWAPI.service"},{"l":"com.progettoOOP.OWAPI.util"}]
