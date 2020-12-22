@@ -1,7 +1,5 @@
 package com.progettoOOP.OWAPI.model;
 /**
- * 
- * @author Luigi Smargiassi
  *
  * Classe public che rappresenta il tipo di dato, utilizzato all'interno dell'applicazione, per eseguire
  * le richieste in POST 
@@ -10,6 +8,8 @@ package com.progettoOOP.OWAPI.model;
  * @param lat
  * @param lon
  * @param cnt
+ *
+ * @author Luigi Smargiassi
  */
 public class RequestBodyClass {
 	private double lat;
