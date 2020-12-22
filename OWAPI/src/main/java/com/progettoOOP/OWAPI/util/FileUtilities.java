@@ -57,20 +57,26 @@ public class FileUtilities {
 	 * @param filePath
 	 * 
 	 * @return contenuto del file
+	 * 
 	 */
-	public static String getFileContent(String filePath) {
+	public static String getFileContent(String filePath)  {
 
 		String content="";
+		
+		BufferedReader reader = null;
+		
 		try {
 			
-			BufferedReader reader = new BufferedReader(new FileReader(filePath));
+			 reader = new BufferedReader(new FileReader(filePath));
 			
 			try {
 			    
 				String line="";
 				while((line=reader.readLine())!=null) content+=line;
-	
+				reader.close();
+				
 			} catch(IOException e) {e.printStackTrace();;}
+			
 			
 		} catch(FileNotFoundException e) {e.printStackTrace();}
 		
