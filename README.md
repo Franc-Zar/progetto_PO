@@ -141,19 +141,19 @@ I parametri di ricerca sono forniti all'applicazione tramite un **Request body**
 
 * **Classi:**
   * Main
-<br/> ![2020-12-18](https://user-images.githubusercontent.com/75085155/102605297-5de7cd80-4125-11eb-9e7c-b52877af08f9.png)
+<br/> ![main](https://user-images.githubusercontent.com/75085155/102903460-a9291580-4470-11eb-8a78-5c9d9e7328c2.png)
   
   * Controller
-<br/> ![2020-12-18 (1)](https://user-images.githubusercontent.com/75085155/102604693-db5f0e00-4124-11eb-9785-e9cf0403983f.png)
-  
+<br/> ![controller](https://user-images.githubusercontent.com/75085155/102903451-a75f5200-4470-11eb-8550-23af2393fe18.png)
+
   * Model
-<br/> ![2020-12-18 (7)](https://user-images.githubusercontent.com/75085155/102607439-98069e80-4128-11eb-9bc4-a42e75e3d83c.png)
+<br/> ![model](https://user-images.githubusercontent.com/75085155/102903467-ac240600-4470-11eb-8422-978e53429a7d.png)
   
   * Service
-<br/> ![2020-12-18 (10)](https://user-images.githubusercontent.com/75085155/102610107-eb7aeb80-412c-11eb-839c-145825ce9620.png)
+<br/> ![service](https://user-images.githubusercontent.com/75085155/102903474-adedc980-4470-11eb-9f66-9762c50c0b24.png)
   
   * Utilities
-<br/> ![2020-12-18 (9)](https://user-images.githubusercontent.com/75085155/102607295-583fb700-4128-11eb-94fc-a5f017865f18.png)
+<br/> ![util](https://user-images.githubusercontent.com/75085155/102903485-b1815080-4470-11eb-9780-466759be749b.png)
 
 
 * **Sequenze** 
