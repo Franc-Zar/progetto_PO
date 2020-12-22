@@ -10,11 +10,11 @@ import org.json.JSONObject;
 import com.progettoOOP.OWAPI.util.FileUtilities;
 import com.progettoOOP.OWAPI.model.AbstractCityData;
 
-/** @author Francesco Zaritto
- *  @author Luigi Smargiassi 
- * 
- * classe public i cui metodi stabiliscono la connessione all'API o all'Archivio e che, dopo la manipolazione dei
+/**classe public i cui metodi stabiliscono la connessione all'API o all'Archivio e che, dopo la manipolazione dei
  * dati, li restituisce all'utente nel formato dell'applicazione, in funzione delle richieste effettuate
+ *
+ *@author Francesco Zaritto
+ *  @author Luigi Smargiassi 
  */
 public class OpenWeather {
 	
