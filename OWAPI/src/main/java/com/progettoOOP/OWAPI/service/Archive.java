@@ -16,7 +16,8 @@ import com.progettoOOP.OWAPI.model.RequestMonitoringClass;
 import com.progettoOOP.OWAPI.util.FileUtilities;
 
 /**
-*  classe per eseguire operazioni di raccolta dati dall'archivio degli storici delle città
+*  classe per eseguire operazioni di raccolta dati dall'archivio degli storici delle città e per aggiungere/rimuovere città dall'elenco di monitoraggio (creando/eliminando i
+*  corrispondenti archivi)
 *  
 *   @author Francesco Zaritto
 *   @author Luigi Smargiassi
