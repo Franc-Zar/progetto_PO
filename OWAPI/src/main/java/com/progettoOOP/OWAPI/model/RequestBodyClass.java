@@ -2,7 +2,7 @@ package com.progettoOOP.OWAPI.model;
 /**
  *
  * Classe public che rappresenta il tipo di dato, utilizzato all'interno dell'applicazione, per eseguire
- * le richieste in POST 
+ * le richieste in POST al fine di ottenere statistiche riguardanti pressione e nuvolosità 
  * 
  * costruttore:
  * @param lat
