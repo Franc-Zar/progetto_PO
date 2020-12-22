@@ -1,7 +1,6 @@
 package com.progettoOOP.OWAPI.model;
 
-/** @author Francesco Zaritto
- * classe public rappresentante il tipo di dato sul quale vengono salvate le statistiche calcolate per 
+/** classe public rappresentante il tipo di dato sul quale vengono salvate le statistiche calcolate per 
  * nuvolosità/pressione riguardo i dati storici di una città (entro un dato periodo). le statistiche sono contenute
  * negli attributi "average" (media) e "variance" (varianza) 
  * 
@@ -11,6 +10,8 @@ package com.progettoOOP.OWAPI.model;
  * @param name
  * @param variance
  * @param average
+ *
+ * @author Francesco Zaritto
  */
 public class CityDataStats extends AbstractCityData {
 
