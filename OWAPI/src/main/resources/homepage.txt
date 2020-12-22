@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html>
+<body>
+<h1>	--HOME--</h1>
+<h3>GET:"\actual" con latitudine,longitudine e numero di località da studiare come parametri,per ottenere informazioni riguardo il meteo corrente</h3>
+<h3>POST:"\stats\{type}\{period}",per ottenere medie e varianze di pressione,nuvolosità o entrambe, come specificato in type,nel periodo di tempo indicato in period latitudine,longitudine e numero di citta da studiare sono passati nel corpo della richiesta come {"lat":...,"lon":...,"cnt":...} </h3>
+<h3>GET:"/monitored" per ottenere l'elencodelle città monitorate</h3>
+<h3>GET:"/archive/{period}" con parametri uguali a quelli della chiamata ad /actual, si ottengono i dati delle città monitorate</h3>
+<h3>POST:"/setmonitor" con RequestBody del tipo: {"lat":...,"lon":...,"name":...},se le informazioni sono corrette, e non è gia monitorata,verrà inizializzato un archivio per la citta richiesta</h3>
+<h3>POST:"/removemonitor" analogo a /setmonitor,permette di smettere di raccogliere dati relativi ad una città</h3>
+</body>
+</html>
