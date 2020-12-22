@@ -20,7 +20,7 @@ import org.slf4j.LoggerFactory;
 import java.util.ArrayList;
 
 
-/**
+/** classe del main autogenerato da spring boot; al suo interno è presente il metodo che aggiorna l'archivio ogni due ore
  * 
  * @author Francesco Zaritto
  *
@@ -92,10 +92,8 @@ void updateArchive() {
 		 thisFileID = fileIDs.get(i);
 		 singleCity = CityList.get(i);
 		 
-	
-		site = "http://localhost:8080/actual?lat="+singleCity.getLat()+"&lon="+singleCity.getLon();
+	site = "http://localhost:8080/actual?lat="+singleCity.getLat()+"&lon="+singleCity.getLon();
 	   
-		
 		dataArray = new JSONArray(FileUtilities.getSiteContent(site));
 		actualData = dataArray.getJSONObject(0);
 
