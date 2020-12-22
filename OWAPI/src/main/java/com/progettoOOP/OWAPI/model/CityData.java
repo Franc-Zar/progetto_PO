@@ -1,8 +1,7 @@
 package com.progettoOOP.OWAPI.model;
 
 
-/** @author Luigi Smargiassi 
- * 
+/** 
  * classe public i cui attributi "cloud" e "pressure" ospitano rispettivamente i valori di nuvolosità e pressione
  * attuali
  * 
@@ -12,6 +11,8 @@ package com.progettoOOP.OWAPI.model;
  * @param name
  * @param cloud
  * @param pressure
+ *
+ * @author Luigi Smargiassi 
  */
 public class CityData extends AbstractCityData {
 
