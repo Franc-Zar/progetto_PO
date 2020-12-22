@@ -32,12 +32,12 @@ public class Archive {
 	
 	
 	
-     /** metodo public che prende come parametri latitudine (lat) e longitudine (lon) della città scelta, 
-     * numero di città (cnt), periodo di calcolo delle statistiche (period); restituisce una lista contenente
-     * i file di archivio delle città cercate, filtrati nel contenuto tramite "period", utili al successivo
-     * calcolo delle statistiche di media e varianza
-     * 
-     * @param lat
+	/** metodo public che prende come parametri latitudine (lat) e longitudine (lon) della città scelta, 
+	 * numero di città (cnt), periodo di calcolo delle statistiche (period); restituisce una lista contenente
+	 * i file di archivio delle città cercate, filtrati nel contenuto tramite "period", utili al successivo
+	 * calcolo delle statistiche di media e varianza
+	 * 
+	 * @param lat
      * @param lon
      * @param cnt
      * @param period
@@ -115,13 +115,14 @@ public class Archive {
 		
 		else newData = new JSONArray(FileUtilities.getSiteContent("http://localhost:8080/actual?lat="+lat+"&lon="+lon+"&cnt=1"));
 			
-		if(cityExists(lat, lon, name, newData)) {
+	if(cityExists(lat, lon, name, newData)) {
 			
 			JSONObject newCity = new JSONObject();
 
 			JSONArray newElenco = new JSONArray(FileUtilities.getFileContent(path+nomeFileElenco));
 	
-		  if(!monitored(lat, lon, newElenco)) {
+		                
+			    if(!monitored(lat, lon, newElenco)) {
 			
 			String newFileID = setNewArchiveName(newElenco);
 		
@@ -134,15 +135,16 @@ public class Archive {
 			File newCityArchive = new File(path + newFileID + ".txt");
 				
 				try {
-					if(newCityArchive.createNewFile()) { 
+					
+					        if(newCityArchive.createNewFile()) { 
 						
 					FileUtilities.overWrite(path + nomeFileElenco, newElenco.toString());
 						
                    FileUtilities.overWrite(newCityArchive.getPath(), getFirstData(lat,lon,name,newData).toString());
 
-return new RequestMonitoringClass(lat, lon, name, "started monitoring this city");
+            return new RequestMonitoringClass(lat, lon, name, "started monitoring this city");
 
-} else return new RequestMonitoringClass(lat, lon, name, "some error occurred: failed to create Archive, city is not monitored");
+  } else return new RequestMonitoringClass(lat, lon, name, "some error occurred: failed to create Archive, city is not monitored");
 				
 				} catch (IOException e) {e.printStackTrace();}
 				
@@ -179,6 +181,7 @@ return new RequestMonitoringClass(lat, lon, name, "started monitoring this city"
 		
 		if(cityExists(lat, lon, name, newData)) {
 		
+		int indexRemove=-1;
 		String deleteFileID="empty";
 		String newElenco;
 		String oldElenco = FileUtilities.getFileContent(path+nomeFileElenco);
@@ -193,24 +196,34 @@ return new RequestMonitoringClass(lat, lon, name, "started monitoring this city"
 	              
 		   deleteFileID = thisCity.getString("fileID");
 	                               
-		    searchCity.remove(i); } }	 
+		    indexRemove = i; 
+		    
+	 } 
+	 
+  }	 
 		
-  if(deleteFileID.equals("empty")) return new RequestMonitoringClass(lat, lon, name, "some error occurred: this city is not monitored");
+  if(deleteFileID.equals("empty") && indexRemove==-1) 
+	        return new RequestMonitoringClass(lat, lon, name, "some error occurred: this city is not monitored");
 	   
 	else {
-	
+		
+		File thisCityArchive = new File(path+deleteFileID+".txt");
+	     
+		if(thisCityArchive.delete()) { 
+		
+		 searchCity.remove(indexRemove);
+		
 		newElenco = searchCity.toString();
 	
     FileUtilities.overWrite(path+nomeFileElenco, newElenco);
+		
+    return new RequestMonitoringClass(lat, lon, name, "stopped monitoring this city");
     
-	
-    	File thisCityArchive = new File(path+deleteFileID+".txt");
-    	
-    if(thisCityArchive.delete()) return new RequestMonitoringClass(lat, lon, name, "stopped monitoring this city");
+		}
+		
+		else return new RequestMonitoringClass(lat, lon, name, "some error occurred: Archive not deleted, city still monitored");	
     
-	 return new RequestMonitoringClass(lat, lon, name, "some error occurred: stopped monitoring this city, but failed to delete this city Archive");
-	
-	  }
+		}
 		
     } else  return new RequestMonitoringClass(lat, lon, name, "some error occurred: this city doesn't exist");
   
@@ -222,10 +235,10 @@ return new RequestMonitoringClass(lat, lon, name, "started monitoring this city"
 	 * ArrayList di stringhe contenente i fileIDs delle città trovate.
 	 * 
 	 * @param lat
-         * @param lon
-         * @param cnt
-         * 
-         * @return fileIDs delle città
+     * @param lon
+     * @param cnt
+     * 
+     * @return fileIDs delle città
 	 */
 	private ArrayList<String> getFileIDs(double lat,double lon,int cnt){
 		String json=FileUtilities.getFileContent(path+nomeFileElenco);
@@ -345,7 +358,7 @@ return new RequestMonitoringClass(lat, lon, name, "started monitoring this city"
 	 */
 	private JSONObject getFirstData (double lat, double lon, String name, JSONArray newData) {
 		
-		JSONObject obj = new JSONObject();
+		JSONObject initializeArchive = new JSONObject();
 		JSONArray firstData;
 		String data;
 		
@@ -356,12 +369,12 @@ return new RequestMonitoringClass(lat, lon, name, "started monitoring this city"
 		
 		firstData = new JSONArray(data);
 		
-		obj.put("name",name);
-		obj.put("lon", lon);
-		obj.put("lat", lat);
-		obj.put("data", firstData);
+		initializeArchive.put("name",name);
+		initializeArchive.put("lon", lon);
+		initializeArchive.put("lat", lat);
+		initializeArchive.put("data", firstData);
 		
-		return obj;
+		return initializeArchive;
 		
 	}
 	
