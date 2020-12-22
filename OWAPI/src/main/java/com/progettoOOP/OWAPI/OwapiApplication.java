@@ -40,7 +40,7 @@ public class OwapiApplication {
 		 
 	{
 		try{
-			JSONArray jarr = new JSONArray(FileUtilities.getFileContent("src/main/resources/ElencoCitta.txt"));
+			JSONArray jarr = new JSONArray(FileUtilities.getFileContent("src/main/resources/elencoCitta.txt"));
 			for(int i=0; i<jarr.length();i++) {
 				JSONObject o=jarr.getJSONObject(i);
 				add(new RequestBodyClass(o.getDouble("lat"),o.getDouble("lon"),1));
@@ -55,7 +55,7 @@ public class OwapiApplication {
 private static final ArrayList<String> fileIDs = new ArrayList<String> () {
 {
 	try{
-		JSONArray jarr=new JSONArray(FileUtilities.getFileContent("src/main/resources/ElencoCitta.txt"));
+		JSONArray jarr=new JSONArray(FileUtilities.getFileContent("src/main/resources/elencoCitta.txt"));
 		for(int i=0; i<jarr.length();i++) {
 			JSONObject o=jarr.getJSONObject(i);
 			add(o.getString("fileID"));
