@@ -1,5 +1,13 @@
 package com.progettoOOP.OWAPI.model;
 
+
+/** Classe public che rappresenta il tipo di dato, utilizzato all'interno dell'applicazione, per eseguire
+ *  le richieste in POST al fine di aggiungere/rimuovere città dall'elenco di monitoraggio
+ *  
+ * 
+ * @author Francesco Zaritto
+ *
+ */
 public class RequestMonitoringClass extends AbstractCityData {
 
 	private String response;
