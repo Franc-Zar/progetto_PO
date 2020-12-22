@@ -81,7 +81,7 @@ fornisce all'utente la lista di città attualmente monitorate dall'applicazione,
 6)
 Tipo | Path | 
 ---- | ---- | 
-POST | localhost:8080/setmonitor" | 
+POST | localhost:8080/setmonitor | 
 
 permette all'utente di aggiungere una città di sua scelta nell'elenco di monitoraggio.
 
@@ -134,7 +134,10 @@ I parametri di ricerca sono forniti all'applicazione tramite un **Request body**
 
 ### UML 
    * **Casi d'uso**
+     * manipolazione dati meteo
 <br/> ![UseCase_ServizioMeteo](https://user-images.githubusercontent.com/75085155/102118385-eb829f00-3e3f-11eb-81cf-cf6f266c6497.png)
+     * configurazioni applicazione
+<br/> ![ddd](https://user-images.githubusercontent.com/75085155/102835051-fc11b700-43f5-11eb-9bef-5515dd76131c.jpg)
 
 * **Classi:**
   * Main
